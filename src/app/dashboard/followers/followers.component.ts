@@ -19,15 +19,22 @@ import { log } from 'util';
   styleUrls: ['./followers.component.scss']
 })
 export class FollowersComponent {
- 
-
- 
-}
 
 
-/*
+  private user: User;
+  displayedColumns: string[] = ['name'];
+
+  //Tab 1 
+  @ViewChild(MatPaginator, { static: true }) paginatorTab1: MatPaginator;
+  isLoadingResultsTab1: boolean = false;
+  dataSourceTab1: User[] = [];
+  dataConfigTab1: any = {
+    search: '',
+    pageSize: 10,// Cantidad de items a mostrar por página
+    length: 0// Cantidad total de itmes
+  };
   //Tab 2
-  @ViewChild('paginatorTab2', {static:true }) paginatorTab2: MatPaginator;
+  @ViewChild('paginatorTab2', { static: true }) paginatorTab2: MatPaginator;
   isLoadingResultsTab2: boolean = false;
   dataSourceTab2: User[] = [];
   dataConfigTab2: any = {
@@ -36,7 +43,7 @@ export class FollowersComponent {
     length: 0// Cantidad total de itmes
   };
   //Tab 3
-  @ViewChild('paginatorTab3', { read: MatPaginator, static:false }) paginatorTab3: MatPaginator;
+  @ViewChild('paginatorTab3', { read: MatPaginator, static: false }) paginatorTab3: MatPaginator;
   isLoadingResultsTab3: boolean = false;
   dataSourceTab3: User[] = [];
   dataConfigTab3: any = {
@@ -46,22 +53,86 @@ export class FollowersComponent {
   };
 
 
-  constructor() {
-  
+  constructor(private followersServices: FollowersService, private snackBar: MatSnackBar, private siginService: SiginService) {
+    this.user = new User();
+    this.user.id = 1;
+
+
   }
-  ngOnInit() {
-      
+
+  ngOnInit(): void {
+    
+    this.countNotFollowers();
   }
   ngAfterViewInit(): void {
-   
+
   }
 
   //Tab 1
+  private countNotFollowers(): void {
+
+    this.followersServices.count(this.user.id, this.dataConfigTab1.search, 'notfollowers').subscribe(
+      response => {
+        this.dataConfigTab1.length = response;
+        this.findAllNotFollowers();
+      },
+      error => {
+        alert('error');
+      });
+  }
+
+  private findAllNotFollowers(): void {
+    this.isLoadingResultsTab1 = true;
+    this.followersServices.find(this.user.id, this.dataConfigTab1.search, ((this.paginatorTab1.pageIndex) * this.dataConfigTab1.pageSize).toString(), this.dataConfigTab1.pageSize, 'notfollowers').subscribe(
+      response => {
+        this.dataSourceTab1 = response;
+        this.isLoadingResultsTab1 = false;
+        //await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => this.isLoadingResults = false);
+      },
+      error => {
+        this.isLoadingResultsTab1 = false;
+        alert('error');
+      });
+  }
+
+  loadTab1(): void {
+    this.countNotFollowers();
+  }
+
  
+
+  public following(user: User): void {
+    user.visible = false;
+    let follower: Follower = new Follower(this.user.id, user.id);
+    this.followersServices.following(follower).subscribe(
+      response => {
+        this.snackBar.open(`Ha empezado a segir a ${user.username}`, '', { duration: 2000 });
+      },
+      error => {
+        alert('error');
+      });
+  }
+
+ 
+  onPaginateTab1(event: PageEvent): void {
+    this.dataConfigTab1.pageSize = event.pageSize;
+    this.findAllNotFollowers();
+  }
+
+  onFilterTab1() {
+    this.countNotFollowers();
+  }
+
+  applyFilterTab1(filterValue: string) {
+    /* this.dataSource.filter = filterValue.trim().toLowerCase();
+ 
+     if (this.dataSource.paginator) {
+       this.dataSource.paginator.firstPage();
+     }*/
+  }
 
   //Tab2
   private countFollowers(): void {
-
     this.followersServices.count(this.user.id, this.dataConfigTab2.search, 'followers').subscribe(
       response => {
         this.dataConfigTab2.length = response;
@@ -144,4 +215,10 @@ export class FollowersComponent {
       error => {
         alert('error');
       });
-  }*/
+  }
+
+}
+
+
+/*
+ */

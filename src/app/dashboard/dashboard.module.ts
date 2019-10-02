@@ -17,7 +17,7 @@ import { CircleImageModule } from './circle-image/circle-image.module';
 import { StoryCircleImageComponent } from './circle-image/story-circle-image/story-circle-image.component';
 import { WatchStoriesComponent } from './stories/watch/watch-stories.component';
 import { FollowersComponent } from './followers/followers.component';
-import { FollowersModule } from './followers/followers.module';
+
 
 
 
@@ -41,8 +41,8 @@ import { FollowersModule } from './followers/followers.module';
     MaterialModule,
     FlexLayoutModule,
     OverlayModule,
-    ScrollingModule,
-    FollowersModule
+    ScrollingModule
+    
     
     
   ],

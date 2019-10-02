@@ -2,19 +2,140 @@
   animationDuration="1000ms" >
   <mat-tab label="Buscar" style="overflow: hidden;">
     <ng-template matTabContent>
-      <app-table-followers [tabNumber]="0"></app-table-followers>
+      <div class="container">
+        <mat-card style="margin:14px;">
+          <mat-toolbar color="primary" class="example-toolbar" *ngIf="!isFilterShowTab1">
+            <h2 class="example-app-name">Buscar</h2>
+            <span class="example-spacer"></span>
+            <button mat-icon-button matTooltip="recargar">
+              <mat-icon class="example-icon" aria-hidden="false" (click)="loadTab1()">refresh</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="filtrar">
+              <mat-icon class="example-icon" aria-hidden="false" (click)="isFilterShowTab1=true">filter_list</mat-icon>
+            </button>
+          </mat-toolbar>
+          <mat-toolbar class="example-toolbar" *ngIf="isFilterShowTab1">
+            <mat-form-field appearance="outline">
+              <mat-label>buscar por nombre</mat-label>
+              <input matInput formControlName="search" (keyup)="applyFilterTab1($event.target.value)">
+              <mat-icon matSuffix class="secondary-text">search</mat-icon>
+            </mat-form-field>
+            <span class="example-spacer"></span>
+            <button mat-icon-button>
+              <mat-icon class="example-icon" aria-hidden="false" (click)="isFilterShowTab1=false">close</mat-icon>
+            </button>
+          </mat-toolbar>
+    
+          <mat-progress-bar mode="query" color="accent" *ngIf="isLoadingResultsTab1"></mat-progress-bar>
+    
+          <table mat-table [dataSource]="dataSourceTab1" matSort>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+              <td mat-cell *matCellDef="let row;" class="single-row">
+                <div fxLayout="row" fxLayoutAlign="start center" style="padding-top: 8px; padding-bottom: 8px;">
+                  <app-story-circle-image matListAvatar [image]="row.image" [borderColor]="'pink'"
+                    style="display: table; vertical-align: middle; margin-right: 8px;"></app-story-circle-image>
+                  <a class="name-user-in-table" matLine> {{row.fullname}} </a>
+                  <span class="example-spacer"></span>
+    
+                  <button mat-stroked-button color="accent" *ngIf="row.visible" fxHide.xs (click)="following(row)">Seguir</button>
+                  <button mat-icon-button fxHide.gt-xs matTooltip="seguir" *ngIf="row.visible" (click)="following(row)">
+                    <mat-icon color="accent" fxHide.gt-xs class="example-icon" aria-hidden="false">person_add</mat-icon>
+                  </button>
+    
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+          <mat-paginator #paginatorTab2 [pageSize]="dataConfigTab1.pageSize" [pageSizeOptions]="[25]"
+            [length]="dataConfigTab1.length" (page)="onPaginateTab1($event)"></mat-paginator>
+        </mat-card>
+      </div>
     </ng-template>
   </mat-tab>
   <mat-tab label="Seguidores">
     <ng-template matTabContent>
-      <app-table-followers [tabNumber]="1"></app-table-followers>
-    
+      <div class="container">
+        <mat-card style="margin:14px;">
+          <mat-toolbar color="primary" class="example-toolbar" *ngIf="!isFilterShowTab2">
+            <h2 class="example-app-name">Seguidores</h2>
+            <span class="example-spacer"></span>
+            <button mat-icon-button matTooltip="recargar">
+              <mat-icon class="example-icon" aria-hidden="false" (click)="loadTab2()">refresh</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="filtrar">
+              <mat-icon class="example-icon" aria-hidden="false" (click)="isFilterShowTab2=true">filter_list</mat-icon>
+            </button>
+          </mat-toolbar>
+        
+          <mat-progress-bar mode="query" color="accent" *ngIf="isLoadingResultsTab2"></mat-progress-bar>
+      
+          <table mat-table [dataSource]="dataSourceTab2" matSort>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+              <td mat-cell *matCellDef="let row;" class="single-row">
+                <div fxLayout="row" fxLayoutAlign="start center" style="padding-top: 8px; padding-bottom: 8px;">
+                  <app-story-circle-image matListAvatar [image]="row.image" [borderColor]="'pink'"
+                    style="display: table; vertical-align: middle; margin-right: 8px;"></app-story-circle-image>
+                  <a class="name-user-in-table" matLine> {{row.fullname}} </a>
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+          <mat-paginator #paginatorTab2 [pageSize]="dataConfigTab2.pageSize" [pageSizeOptions]="[5]"
+            [length]="dataConfigTab2.length" (page)="onPaginateTab2($event)"></mat-paginator>
+        </mat-card>
+      </div>
+      
     </ng-template>
   </mat-tab>
   <mat-tab label="Seguidos">
     <ng-template matTabContent>
-   
-      <app-table-followers [tabNumber]="2"></app-table-followers>
+      <div class="container">
+        <mat-card style="margin:14px;">
+          <mat-toolbar color="primary" class="example-toolbar" *ngIf="!isFilterShowTab3">
+            <h2 class="example-app-name">Seguidores</h2>
+            <span class="example-spacer"></span>
+            <button mat-icon-button matTooltip="recargar">
+              <mat-icon class="example-icon" aria-hidden="false" (click)="loadTab3()">refresh</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="filtrar">
+              <mat-icon class="example-icon" aria-hidden="false" (click)="isFilterShowTab3=true">filter_list</mat-icon>
+            </button>
+          </mat-toolbar>
+        
+          <mat-progress-bar mode="query" color="accent" *ngIf="isLoadingResultsTab3"></mat-progress-bar>
+      
+          <table mat-table [dataSource]="dataSourceTab3" matSort>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+              <td mat-cell *matCellDef="let row; " class="single-row">
+                <div fxLayout="row" fxLayoutAlign="start center" style="padding-top: 8px; padding-bottom: 8px;">
+                  <app-story-circle-image matListAvatar [image]="row.image" [borderColor]="'pink'"
+                    style="display: table; vertical-align: middle; margin-right: 8px;"></app-story-circle-image>
+                  <a class="name-user-in-table" matLine> {{row.fullname}} </a>
+                  <span class="example-spacer"></span>
+                  <button mat-stroked-button color="accent" *ngIf="row.visible" fxHide.xs (click)="stopFollowing(row)">Dejar</button>
+                  <button mat-icon-button fxHide.gt-xs matTooltip="dejar" *ngIf="row.visible" (click)="stopFollowing(row)">
+                    <mat-icon color="accent" fxHide.gt-xs class="example-icon" aria-hidden="false">close</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+          <mat-paginator #paginatorTab3 [pageSize]="dataConfigTab3.pageSize" [pageSizeOptions]="[100]"
+            [length]="dataConfigTab3.length" (page)="onPaginateTab3($event)"></mat-paginator>
+        </mat-card>
+      </div>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
@@ -23,96 +144,7 @@
 
 
 
-<!--div class="container">
-  <mat-card style="margin:14px;">
-    <mat-toolbar color="primary" class="example-toolbar" *ngIf="!isFilterShowTab1">
-      <h2 class="example-app-name">Buscar</h2>
-      <span class="example-spacer"></span>
-      <button mat-icon-button matTooltip="recargar">
-        <mat-icon class="example-icon" aria-hidden="false" (click)="loadTab1()">refresh</mat-icon>
-      </button>
-      <button mat-icon-button matTooltip="filtrar">
-        <mat-icon class="example-icon" aria-hidden="false" (click)="isFilterShowTab1=true">filter_list</mat-icon>
-      </button>
-    </mat-toolbar>
-    <mat-toolbar class="example-toolbar" *ngIf="isFilterShowTab1">
-      <mat-form-field appearance="outline">
-        <mat-label>buscar por nombre</mat-label>
-        <input matInput formControlName="search" (keyup)="applyFilterTab1($event.target.value)">
-        <mat-icon matSuffix class="secondary-text">search</mat-icon>
-      </mat-form-field>
-      <span class="example-spacer"></span>
-      <button mat-icon-button>
-        <mat-icon class="example-icon" aria-hidden="false" (click)="isFilterShowTab1=false">close</mat-icon>
-      </button>
-    </mat-toolbar>
-
-    <mat-progress-bar mode="query" color="accent" *ngIf="isLoadingResultsTab1"></mat-progress-bar>
-
-    <table mat-table [dataSource]="dataSourceTab1" matSort>
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-        <td mat-cell *matCellDef="let row;" class="single-row">
-          <div fxLayout="row" fxLayoutAlign="start center" style="padding-top: 8px; padding-bottom: 8px;">
-            <app-story-circle-image matListAvatar [image]="row.image" [borderColor]="'pink'"
-              style="display: table; vertical-align: middle; margin-right: 8px;"></app-story-circle-image>
-            <a class="name-user-in-table" matLine> {{row.fullname}} </a>
-            <span class="example-spacer"></span>
-            <button mat-stroked-button color="accent" *ngIf="row.visible" fxHide.xs (click)="following(row)">Seguir</button>
-            <button mat-icon-button fxHide.gt-xs matTooltip="seguir" *ngIf="row.visible" (click)="following(row)">
-              <mat-icon color="accent" fxHide.gt-xs class="example-icon" aria-hidden="false">person_add</mat-icon>
-            </button>
-          </div>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-      </tr>
-    </table>
-    <mat-paginator #paginatorTab1 [pageSize]="dataConfigTab1.pageSize" [pageSizeOptions]="[5]"
-      [length]="dataConfigTab1.length" (page)="onPaginateTab1($event)"></mat-paginator>
-  </mat-card>
-</div>
 
 
-///////////////////////////////////////
 
-<div class="container">
-  <mat-card style="margin:14px;">
-    <mat-toolbar color="primary" class="example-toolbar" *ngIf="!isFilterShowTab3">
-      <h2 class="example-app-name">Seguidores</h2>
-      <span class="example-spacer"></span>
-      <button mat-icon-button matTooltip="recargar">
-        <mat-icon class="example-icon" aria-hidden="false" (click)="loadTab3()">refresh</mat-icon>
-      </button>
-      <button mat-icon-button matTooltip="filtrar">
-        <mat-icon class="example-icon" aria-hidden="false" (click)="isFilterShowTab3=true">filter_list</mat-icon>
-      </button>
-    </mat-toolbar>
-  
-    <mat-progress-bar mode="query" color="accent" *ngIf="isLoadingResultsTab3"></mat-progress-bar>
 
-    <table mat-table [dataSource]="dataSourceTab3" matSort>
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-        <td mat-cell *matCellDef="let row; " class="single-row">
-          <div fxLayout="row" fxLayoutAlign="start center" style="padding-top: 8px; padding-bottom: 8px;">
-            <app-story-circle-image matListAvatar [image]="row.image" [borderColor]="'pink'"
-              style="display: table; vertical-align: middle; margin-right: 8px;"></app-story-circle-image>
-            <a class="name-user-in-table" matLine> {{row.fullname}} </a>
-            <span class="example-spacer"></span>
-            <button mat-stroked-button color="accent" *ngIf="row.visible" fxHide.xs (click)="stopFollowing(row)">Dejar</button>
-            <button mat-icon-button fxHide.gt-xs matTooltip="dejar" *ngIf="row.visible" (click)="stopFollowing(row)">
-              <mat-icon color="accent" fxHide.gt-xs class="example-icon" aria-hidden="false">close</mat-icon>
-            </button>
-          </div>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-      </tr>
-    </table>
-    <mat-paginator #paginatorTab3 [pageSize]="dataConfigTab3.pageSize" [pageSizeOptions]="[100]"
-      [length]="dataConfigTab3.length" (page)="onPaginateTab3($event)"></mat-paginator>
-  </mat-card>
-</div-->
