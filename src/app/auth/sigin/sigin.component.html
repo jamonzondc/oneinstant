@@ -1,0 +1,86 @@
+<div id="login" class="inner-scroll" fxLayout="row" fxLayoutAlign="start">
+
+  <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
+
+    
+
+    <div class="logo" >
+      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    </div>
+
+    <div class="title">
+      Welcome to Angular 8 by Google
+    </div>
+
+    <div class="description" >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat,
+      vel convallis elit fermentum pellentesque. Sed mollis velit facilisis facilisis viverra.
+    </div>
+
+  </div>
+  
+    <div id="login-form-wrapper" fusePerfectScrollbar>
+
+      <div id="login-form">
+
+        <div class="logo" fxHide.gt-xs>
+          <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+        </div>
+
+        <div class="title" align="center">LOGIN TO YOUR ACCOUNT</div>
+     
+        <form name="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput formControlName="username">
+            <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+            <mat-hint>Nombre de usuario</mat-hint>
+            <mat-error *ngIf="loginForm.get('username').hasError('required')">
+              El nombre de usuario es requerido
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+            <mat-hint>Contraseña</mat-hint>
+            <mat-error>
+              La contraseña es requerida
+            </mat-error>
+          </mat-form-field>
+      
+
+          <button mat-raised-button [disabled]="loading" color="accent" class="submit-button" aria-label="Entrar">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Entrar
+          </button>
+
+        </form>
+
+        <div class="separator">
+          <span class="text">OR</span>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start center">
+
+          <button mat-raised-button class="google">
+            Log in with Google
+          </button>
+
+          <button mat-raised-button class="facebook" (click)="onHome()">
+            Log in with Facebook
+          </button>
+
+        </div>
+
+        <div class="register" fxLayout="column" fxLayoutAlign="center center">
+          <span class="text">Don't have an account?</span>
+          <a class="link" [routerLink]="'/pages/auth/register-2'">Create an account</a>
+        </div>
+      </div>
+    </div>
+  
+</div>

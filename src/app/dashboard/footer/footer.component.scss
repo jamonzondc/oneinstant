@@ -1,0 +1,25 @@
+
+/*Footer*/
+.list-footer {
+    padding: 0;
+}
+
+.list-footer li {
+    list-style: none;
+    margin-bottom: 6px;
+}
+
+.list-footer li a {
+    text-decoration: none;
+    color: white !important;
+   // font-size: 14px;
+}
+.list-footer li a md-icon {
+    margin-right: 8px;
+}
+.reply li a md-icon{
+    transform: rotateY(180grad);
+}
+.list-footer .dark-accent-color-3{
+    margin-right: 8px;
+}

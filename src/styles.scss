@@ -1,1 +1,68 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import './assets/scss/material-theme.scss';
+
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media only screen and (max-width: 600px)  {
+  html {
+    font-size: 80%;
+  }
+}
+
+
+//
+.ps__rail-y {
+  background-color: #303030 !important;
+}
+.ps__thumb-y {
+  //background-color: mat-color($dark-accent) !important;
+}
+mat-card {
+  margin: 8px;
+}
+
+
+#mat-sidenavChat .mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+#mat-sidenavChat perfect-scrollbar {
+  width: auto !important;
+}
+
+.container {
+  margin: 14px !important;
+}
+.avatar {
+  width: 40px !important;
+  height: 40px !important;
+  float: left;
+  border: 1px solid white;
+  border-radius: 50% !important;
+  display: inline-block;
+  overflow: hidden;
+}
+.mat-icon svg {
+  height: 42px;
+  width: 42px;
+}
+.img-avatar {
+  margin-top: 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+}
+.mat-tab-body-content {
+  overflow: hidden !important;
+}
+
+/////////////////////////

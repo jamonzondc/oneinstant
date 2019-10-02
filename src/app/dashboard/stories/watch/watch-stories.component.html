@@ -1,0 +1,24 @@
+<div xLayout="row" fxLayoutAlign="space-between center">
+
+  <mat-card-header>
+    <app-story-circle-image mat-card-avatar [image]="'avatar:svg-2'" [borderColor]="'#F50057'"></app-story-circle-image>
+    <mat-card-title>Shiba Inu</mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+
+  <button mat-button color="primary" [mat-dialog-close]="true">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+<div xLayout="row" fxLayoutAlign="space-around center">
+  <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+</div>
+<mat-dialog-content>Are you sure?</mat-dialog-content>
+<mat-dialog-actions>
+
+
+</mat-dialog-actions>

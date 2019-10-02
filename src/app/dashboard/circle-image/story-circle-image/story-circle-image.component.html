@@ -1,0 +1,13 @@
+<!--div class="gradient-wrapper">
+    <div class="maincircle">
+        <img *ngIf="!isAvatar()"  class="img-border" src="{{image}}">
+        <mat-icon *ngIf="isAvatar()"  svgIcon="{{ image | slice:7}}" class="avatar img-border"
+                  style="border-radius: 50%;">
+                </mat-icon>
+    </div>
+</div-->
+<div id="img-border-color" [ngStyle]="{'box-shadow': getBoxShadow()}">
+    <img *ngIf="!isAvatar()" class="img-border" src="{{image}}">
+    <mat-icon *ngIf="isAvatar()" svgIcon="{{ image | slice:7}}" class="avatar img-border" style="border-radius: 50%;">
+    </mat-icon>
+</div>

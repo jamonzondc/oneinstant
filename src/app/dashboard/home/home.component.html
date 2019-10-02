@@ -1,0 +1,115 @@
+<div id="inicio" fxLayout="column" fxLayout.gt-md="row" style="padding: 14px;">
+
+  <div fxFlex.gt-sm="66" style="padding: 8px;">
+    <mat-card>
+      <mat-card-title>
+        <span class="md-title" style="text-align: center">Palabras de Bienvenida</span>
+      </mat-card-title>
+      <mat-card-content>
+        <div>
+          <p style="text-align: justify">La Biblioteca "José Comallonga y Mena" de la Universidad Agraria de
+            La
+            Habana, atesora un valioso acervo
+            bibliográfico patrimonial de los primeros textos de las carreras agropecuarias en Cuba. Cuenta
+            además
+            con
+            libros, folletos, revistas, tesis y obras de referencia que apoyan las diferentes carreras que
+            se
+            imparten
+            en la universidad. En nuestro sitio también podrá encontrar acceso a la biblioteca digital
+            agropecuaria
+            y al
+            anuario donde se encuentra parte de la producción científica de los profesores desde 1999 hasta
+            la
+            fecha,
+            así como links de acceso a bases de datos internacionales y a la red del Ministerio de Educación
+            Superior de
+            la República de Cuba. A través de este sitio, usted conocerá las nuevas adquisiciones recibidas,
+            y podrá
+            acceder a un inmenso caudal de información en soporte digital a texto completo, organizado por
+            grupos
+            temáticos, el cual incluye libros, tesis de Diploma, Maestría, Doctorado, así como literatura
+            universal.
+            Le
+            damos la bienvenida e invitamos a que nos visite. Recuerde que nuestros servicios tienen el
+            propósito de
+            ofrecerles conocimientos con el rigor y la cultura que usted merece, regístrese en nuestro sitio
+            y podrá
+            hacer usos de ellos.
+          </p>
+        </div>
+        <div style="font-size: 13px">
+          <p style="margin: 0 0 8px;">Dra. C. Zulimary Rodríguez Picornell</p>
+          <p style="margin:  0 0 8px">Profesora Titular</p>
+          <p style="margin:  0 0 8px;">Directora de Gestión de la Información y el Conocimiento</p>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+  <div fxFlex.gt-sm="33" style="padding: 8px;">
+    <mat-card>
+
+
+
+      <mat-list>
+       <div xLayout="row" fxLayoutAlign="space-between center">
+          <h3 matSubheader>Historias</h3>
+          <span matSubheader >ver todas</span>
+       </div>
+        
+        <mat-list-item (click)="openMatDialog()">
+          <button mat-mini-fab matListAvatar color="accent" style="height: 42px; width: 42px;">
+            <mat-icon>add</mat-icon>
+          </button>
+          <h4 mat-line>Tu historia</h4>
+        </mat-list-item>
+        <cdk-virtual-scroll-viewport itemSize="72" class="example-viewport">
+          <mat-list-item *cdkVirtualFor="let item of dataSource; let odd=odd" class="example-item" style="">
+            <app-story-circle-image matListAvatar [image]="item?.user?.image" [borderColor]="'pink'"
+              style="display: table; vertical-align: middle;"></app-story-circle-image>
+            <h4 mat-line>{{item.id || 'Loading...'}}</h4>
+            <p mat-line> hace 5 horas </p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </cdk-virtual-scroll-viewport>
+
+      </mat-list>
+
+    </mat-card>
+  </div>
+</div>
+
+<!--mat-list>
+  <h3 matSubheader>Historias</h3>
+  <mat-list-item>
+      <a mat-mini-fab matListAvatar style="height: 42px; width: 42px;">
+          <mat-icon>add</mat-icon>
+      </a>
+      <h4 mat-line>Tu historia</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  <mat-list-item>
+    <mat-icon matListAvatar svgIcon="{{'avatar:svg-10' | slice:7}}" class="avatar" style="border-radius: 50%;">
+    </mat-icon>
+    <h4 mat-line>Jorge A</h4>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>
+    <img matListAvatar class="avatar img-avatar" src="/assets/images/shiba2.jpg">
+    <h4 mat-line>Daniela Brito</h4>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>
+    <mat-icon matListAvatar svgIcon="{{'avatar:svg-5' | slice:7}}" class="avatar" style="border-radius: 50%;">
+    </mat-icon>
+    <h4 mat-line>DBR J</h4>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>
+    <mat-icon matListAvatar svgIcon="{{'avatar:svg-7' | slice:7}}" class="avatar" style="border-radius: 50%;">
+    </mat-icon>
+    <h4 mat-line>Laia D`l</h4>
+  </mat-list-item>
+</mat-list-->

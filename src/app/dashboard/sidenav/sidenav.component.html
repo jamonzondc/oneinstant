@@ -1,0 +1,49 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <app-toolbar (trigger)="!mobileQuery.matches ? onFolded(): snav.toggle()"></app-toolbar>
+ 
+  <mat-sidenav-container class="example-sidenav-container">
+
+    <mat-sidenav id="sidenav" [opened]="!mobileQuery.matches" #snav [mode]="mobileQuery.matches ? 'over' : 'side'">
+      <perfect-scrollbar>
+        <mat-nav-list class="sidenav">
+         
+          <a mat-list-item routerLink="home" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
+            true}">
+            <mat-icon>home</mat-icon>
+            <span *ngIf="isExpanded">Inicio</span>
+          </a>
+               
+          <a mat-list-item routerLink="followers" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
+            true}">
+            <mat-icon>thumb_up</mat-icon>
+            <span *ngIf="isExpanded">Seguidores</span>
+          </a>
+         
+          <a mat-list-item routerLink="myFriends" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
+            true}">
+            <mat-icon>search</mat-icon>
+            <span *ngIf="isExpanded">Exolorar</span>
+          </a>
+         
+          <a mat-list-item routerLink="solicitFriendship" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
+            true}">
+            <mat-icon>library_books</mat-icon>
+            <span *ngIf="isExpanded">Historias</span>
+          </a>
+
+        </mat-nav-list>
+      </perfect-scrollbar>
+    </mat-sidenav>
+
+ 
+
+    <mat-sidenav-content id="sidenav-content">
+      <perfect-scrollbar>
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+      </perfect-scrollbar>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>
