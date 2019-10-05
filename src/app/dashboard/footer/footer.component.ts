@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InternationalizationService } from 'src/app/config/services/i18n/internationalization.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private internationalization: InternationalizationService) { }
 
   ngOnInit() {
   }
 
+  public onChangeLannguaje(langaje:string):void{
+    this.internationalization.setLanguaje(langaje);
+  }
 }

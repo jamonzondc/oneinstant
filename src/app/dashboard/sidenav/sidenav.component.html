@@ -1,45 +1,72 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <app-toolbar (trigger)="!mobileQuery.matches ? onFolded(): snav.toggle()"></app-toolbar>
- 
+
   <mat-sidenav-container class="example-sidenav-container">
 
     <mat-sidenav id="sidenav" [opened]="!mobileQuery.matches" #snav [mode]="mobileQuery.matches ? 'over' : 'side'">
       <perfect-scrollbar>
+        <!--ul>
+          <li>
+              <button mat-flat-button  color="accent" *ngIf="false" fxHide.xs (click)="unFollowing(row)">
+                  {{"app.dashboard.followers.table.buttonUnFollow"| translate}}
+                </button>
+
+                <button mat-stroked-button color="accent" *ngIf="true" routerLink="home" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
+                  true}">
+                  <mat-icon>home</mat-icon>
+                  {{"app.dashboard.sidenav.home"| translate}}
+                </button>
+          </li>
+          <li>
+              <button mat-flat-button  color="accent" *ngIf="false" fxHide.xs (click)="unFollowing(row)">
+                  {{"app.dashboard.followers.table.buttonUnFollow"| translate}}
+                </button>
+
+                <button mat-stroked-button color="accent" *ngIf="true" routerLink="followers" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
+                  true}">
+                  <mat-icon>thumb_up</mat-icon>
+                  {{"app.dashboard.sidenav.followers"| translate}}
+                </button>
+          </li>
+        </ul-->
         <mat-nav-list class="sidenav">
-         
+
+
           <a mat-list-item routerLink="home" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
             true}">
             <mat-icon>home</mat-icon>
-            <span *ngIf="isExpanded">Inicio</span>
+            <span *ngIf="isExpanded">{{"app.dashboard.sidenav.home"| translate}}</span>
           </a>
-               
+
           <a mat-list-item routerLink="followers" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
             true}">
             <mat-icon>thumb_up</mat-icon>
-            <span *ngIf="isExpanded">Seguidores</span>
+            <span *ngIf="isExpanded">{{"app.dashboard.sidenav.followers"| translate}}</span>
           </a>
-         
+
           <a mat-list-item routerLink="myFriends" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
             true}">
             <mat-icon>search</mat-icon>
-            <span *ngIf="isExpanded">Exolorar</span>
+            <span *ngIf="isExpanded">{{"app.dashboard.sidenav.explorer"| translate}}</span>
           </a>
-         
+
           <a mat-list-item routerLink="solicitFriendship" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
             true}">
             <mat-icon>library_books</mat-icon>
-            <span *ngIf="isExpanded">Historias</span>
+            <span *ngIf="isExpanded">{{"app.dashboard.sidenav.stories"| translate}}</span>
           </a>
 
         </mat-nav-list>
       </perfect-scrollbar>
     </mat-sidenav>
 
- 
+
 
     <mat-sidenav-content id="sidenav-content">
       <perfect-scrollbar>
-        <router-outlet></router-outlet>
+       
+          <router-outlet ></router-outlet>
+        
         <app-footer></app-footer>
       </perfect-scrollbar>
     </mat-sidenav-content>

@@ -33,7 +33,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatTooltipModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatBadgeModule
   ],
   exports:[
     MatInputModule, 
@@ -61,6 +62,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class MaterialModule { 
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
-    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/svg-assets-cache.svg')); // Or whatever path you placed mdi.svg at
+    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/svg/svg-assets-cache.svg')); // Or whatever path you placed mdi.svg at
   }
 }

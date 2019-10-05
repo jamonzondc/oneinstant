@@ -1,10 +1,9 @@
 @import "~@angular/material/theming";
 
-
 @include mat-core();
 
 $primary: mat-palette($mat-purple);
-$accent: mat-palette($mat-green, A100, A200, A400);
+$accent: mat-palette($mat-yellow, A400);
 $warn: mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
@@ -13,64 +12,41 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 // Our dark theme
 
+$dark-primary: mat-palette($mat-purple, 800);
+$dark-accent: mat-palette($mat-yellow, A700);
+$dark-warn: mat-palette($mat-red);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .dark-theme {
-  $dark-primary: mat-palette($mat-purple);
-  $dark-accent: mat-palette($mat-green, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
-  
   @include angular-material-theme($dark-theme);
 }
-
 
 .light-primary-color-1 {
   background: mat-color($primary);
 }
-.light-primary-color-2 {
-  background: mat-color($primary, 800);
-}
-.light-primary-color-3 {
-  background: mat-color($primary, 900);
-}
+
 .light-accent-color-1 {
-  color: mat-color($accent, A100);
-}
-.light-accent-color-2 {
-  color: mat-color($accent, A200);
-}
-.light-dark-accent-color-3 {
   color: mat-color($accent, A400);
 }
+
 .light-active-link {
-  background: mat-color($accent, A200) !important;
+  background: mat-color($accent, A400) !important;
   //margin-right: 5px;
   border-radius: 0 100px 100px 0;
   //width: 85%!important;
 }
-/*
+
 //Dark
 .dark-primary-color-1 {
-  background: mat-color($dark-primary);
-}
-.dark-primary-color-2 {
   background: mat-color($dark-primary, 800);
 }
-.dark-primary-color-3 {
-  background: mat-color($dark-primary, 900);
-}
+
 .dark-accent-color-1 {
-  color: mat-color($dark-accent, A100);
+  color: mat-color($dark-accent, A700);
 }
-.dark-accent-color-2 {
-  color: mat-color($dark-accent, A200);
-}
-.dark-accent-color-3 {
-  color: mat-color($dark-accent, A400);
-}
+
 .dark-active-link {
-  background: mat-color($dark-accent, A200) !important;
+  background: mat-color($dark-accent, A700) !important;
   //margin-right: 5px;
   border-radius: 0 100px 100px 0;
   //width: 85%!important;
 }
-*/

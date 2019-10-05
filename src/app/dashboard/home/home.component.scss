@@ -11,3 +11,22 @@ mat-list-item :hover{
   cursor: pointer;
   
 }
+.example-card {
+  max-width: 600px;
+}
+.mat-card-header{
+  margin-bottom: 6px !important;
+  
+}
+.mat-card-actions{
+  padding: 0 !important;
+}
+.mat-card-image{
+  margin-bottom: 4px !important;
+}
+.icon-favorite{
+  font-size: 3em;
+}
+.action-button-publishin{
+  margin-right: 12px;
+}

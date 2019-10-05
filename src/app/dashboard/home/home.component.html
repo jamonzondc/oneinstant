@@ -1,50 +1,43 @@
 <div id="inicio" fxLayout="column" fxLayout.gt-md="row" style="padding: 14px;">
 
   <div fxFlex.gt-sm="66" style="padding: 8px;">
-    <mat-card>
-      <mat-card-title>
-        <span class="md-title" style="text-align: center">Palabras de Bienvenida</span>
-      </mat-card-title>
-      <mat-card-content>
-        <div>
-          <p style="text-align: justify">La Biblioteca "José Comallonga y Mena" de la Universidad Agraria de
-            La
-            Habana, atesora un valioso acervo
-            bibliográfico patrimonial de los primeros textos de las carreras agropecuarias en Cuba. Cuenta
-            además
-            con
-            libros, folletos, revistas, tesis y obras de referencia que apoyan las diferentes carreras que
-            se
-            imparten
-            en la universidad. En nuestro sitio también podrá encontrar acceso a la biblioteca digital
-            agropecuaria
-            y al
-            anuario donde se encuentra parte de la producción científica de los profesores desde 1999 hasta
-            la
-            fecha,
-            así como links de acceso a bases de datos internacionales y a la red del Ministerio de Educación
-            Superior de
-            la República de Cuba. A través de este sitio, usted conocerá las nuevas adquisiciones recibidas,
-            y podrá
-            acceder a un inmenso caudal de información en soporte digital a texto completo, organizado por
-            grupos
-            temáticos, el cual incluye libros, tesis de Diploma, Maestría, Doctorado, así como literatura
-            universal.
-            Le
-            damos la bienvenida e invitamos a que nos visite. Recuerde que nuestros servicios tienen el
-            propósito de
-            ofrecerles conocimientos con el rigor y la cultura que usted merece, regístrese en nuestro sitio
-            y podrá
-            hacer usos de ellos.
-          </p>
-        </div>
-        <div style="font-size: 13px">
-          <p style="margin: 0 0 8px;">Dra. C. Zulimary Rodríguez Picornell</p>
-          <p style="margin:  0 0 8px">Profesora Titular</p>
-          <p style="margin:  0 0 8px;">Directora de Gestión de la Información y el Conocimiento</p>
-        </div>
+    <mat-card class="example-card">
+      <div xLayout="row" fxLayoutAlign="space-between center">
+        <mat-card-header>
+          <app-story-circle-image mat-card-avatar [image]="'avatar:svg-4'" [borderColor]="'blue'">
+          </app-story-circle-image>
+          <mat-card-title>Shiba Inu</mat-card-title>
+          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>
+        <button mat-icon-button>
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </div>
 
+      <img mat-card-image src="/assets/images/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-actions>
+        <button class="action-button-publishin" mat-icon-button color="accent" matBadge="8" matBadgePosition="above after" matBadgeColor="primary">
+          <mat-icon class="icon-favorite">favorite_border</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent">
+          <mat-icon class="icon-favorite">mode_comment</mat-icon>
+        </button>
+
+
+
+      </mat-card-actions>
+      <mat-card-content>
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+          bred for hunting.
+        </p>
       </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
     </mat-card>
 
   </div>
@@ -54,11 +47,11 @@
 
 
       <mat-list>
-       <div xLayout="row" fxLayoutAlign="space-between center">
+        <div xLayout="row" fxLayoutAlign="space-between center">
           <h3 matSubheader>Historias</h3>
-          <span matSubheader >ver todas</span>
-       </div>
-        
+          <span matSubheader>ver todas</span>
+        </div>
+
         <mat-list-item (click)="openMatDialog()">
           <button mat-mini-fab matListAvatar color="accent" style="height: 42px; width: 42px;">
             <mat-icon>add</mat-icon>

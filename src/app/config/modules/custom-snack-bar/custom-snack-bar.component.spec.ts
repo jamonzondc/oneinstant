@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserCircleImageComponent } from './user-circle-image.component';
+import { CustomSnackBarComponent } from './custom-snack-bar.component';
 
-describe('UserCircleImageComponent', () => {
-  let component: UserCircleImageComponent;
-  let fixture: ComponentFixture<UserCircleImageComponent>;
+describe('CustomSnackBarComponent', () => {
+  let component: CustomSnackBarComponent;
+  let fixture: ComponentFixture<CustomSnackBarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserCircleImageComponent ]
+      declarations: [ CustomSnackBarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserCircleImageComponent);
+    fixture = TestBed.createComponent(CustomSnackBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

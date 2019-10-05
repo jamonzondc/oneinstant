@@ -6,7 +6,7 @@
                 </mat-icon>
     </div>
 </div-->
-<div id="img-border-color" [ngStyle]="{'box-shadow': getBoxShadow()}">
+<div id="img-border-color" [ngStyle]="{'box-shadow': getBoxShadow(), 'border': getBackground()}">
     <img *ngIf="!isAvatar()" class="img-border" src="{{image}}">
     <mat-icon *ngIf="isAvatar()" svgIcon="{{ image | slice:7}}" class="avatar img-border" style="border-radius: 50%;">
     </mat-icon>

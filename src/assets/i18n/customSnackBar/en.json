@@ -1,0 +1,6 @@
+{
+    "customSnackBar": {
+        "follow": "You has started following {{name}}",
+        "unfollow": "You has stopped following {{name}}"
+    }
+}

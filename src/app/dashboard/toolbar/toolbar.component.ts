@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Renderer2 } from '@angular/cor
 import { Router } from '@angular/router';
 import { SiginService } from 'src/app/auth/sigin/sigin.service';
 import { Observable } from 'rxjs';
-import { ThemeService } from 'src/app/theme.service';
+import { ThemeService } from 'src/app/config/services/theme/theme.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({

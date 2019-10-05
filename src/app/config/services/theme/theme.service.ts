@@ -12,7 +12,10 @@ export class ThemeService {
   
   isDarkTheme = this._darkTheme.asObservable();
 
+  isDarkThemeB:boolean;
+
   setDarkTheme(isDarkTheme: boolean): void {
+    this.isDarkThemeB=isDarkTheme;
     this._darkTheme.next(isDarkTheme);
   }
 }

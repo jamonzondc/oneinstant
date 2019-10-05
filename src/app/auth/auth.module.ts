@@ -5,10 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { HttpClientModule } from '@angular/common/http';
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '../config/modules/material/material.module';
 import { SiginComponent } from './sigin/sigin.component';
 import { SigupComponent } from './sigup/sigup.component';
-import { MyPerfectScrollBarModule } from '../my-perfect-scroll-bar/my-perfect-scroll-bar.module';
+import { MyPerfectScrollBarModule } from '../config/modules/my-perfect-scroll-bar/my-perfect-scroll-bar.module';
 
 
 
@@ -27,6 +27,7 @@ import { MyPerfectScrollBarModule } from '../my-perfect-scroll-bar/my-perfect-sc
     MyPerfectScrollBarModule,
     OverlayModule,
     HttpClientModule,
+    
     AuthRoutingModule
   ]
 })

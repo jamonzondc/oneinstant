@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { ThemeService } from './theme.service';
 import { Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { ThemeService } from './config/services/theme/theme.service';
+import { InternationalizationService } from './config/services/i18n/internationalization.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +10,19 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'oneInstant';
+  
   isDarkTheme: Observable<boolean>;
 
-  constructor(private themeService: ThemeService) { }
+  constructor(
+    private themeService: ThemeService, 
+    private translate: TranslateService,
+    private internationalization: InternationalizationService) {
+      
+      this.internationalization.setLanguaje('en');
+      translate.addLangs(['en', 'es']);
+      translate.setDefaultLang('en');
+      translate.use('en');
+   }
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;

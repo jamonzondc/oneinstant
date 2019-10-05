@@ -1,0 +1,34 @@
+{
+    "app":{
+        "dashboard":{
+            "followers":{
+                "tabs":{
+                    "search":"Buscar",
+                    "followers":"Seguidores",
+                    "following": "Seguidos"
+                },
+                "table":{
+                    "columnName":"Nombre",
+                    "buttonFollow":"Seguir",
+                    "buttonUnFollow":"Dejar de seguir",
+                    "buttonAction":{
+                        "follow":  "Ha empezado a segir a {{value}}",
+                        "unfollow":"Ha dejado de segir a {{value}}"   
+                     },
+                    "tooltips":{
+                        "reload":"Recargar",
+                        "search":"Buscar por nombre"
+                        
+                    },
+                    "pagination":{
+                        "itemsPerPageLabel":"Usuarios por página:",
+                        "firstPageLabel":"Primera página",
+                        "nextPageLabel":"Página siguiente",
+                        "previousPageLabel":"Página anterior",
+                        "lastPageLabel":"Última página"
+                    }
+                }
+            }
+        }
+    }
+}

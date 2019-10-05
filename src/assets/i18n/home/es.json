@@ -1,0 +1,46 @@
+{
+    "app":{
+        "toolbar":{
+            "title":"Instante",
+            "tooltips":{
+                "notifications":"Notificaciones",
+                "tool":"Opciones"
+            },
+            "menu":{
+                "profile":"Perfil",
+                "logout":"Cerrar sesión"
+            }
+        },
+        "sidenav":{
+            "home":"Inicio",
+            "followers":"Seguidores",
+            "explorer": "Explorar"
+        },
+        "dashboard":{
+            "followers":{
+                "tabs":{
+                    "search":"Buscar",
+                    "followers":"Seguidores",
+                    "following": "Seguidos"
+                },
+                "table":{
+                    "columnName":"Nombre",
+                    "buttonFollow":"Seguir",
+                    "buttonUnFollow":"Dejar de seguir",
+                    "tooltips":{
+                        "refresh":"Recargar",
+                        "search":"Buscar por nombre"
+                        
+                    },
+                    "pagination":{
+                        "itemsPerPageLabel":"Usuarios por página:",
+                        "firstPageLabel":"Primera página",
+                        "nextPageLabel":"Página siguiente",
+                        "previousPageLabel":"Página anterior",
+                        "lastPageLabel":"Última página"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -9,8 +9,8 @@ import { SigupComponent } from './sigup/sigup.component';
 //Como los states
 const authRoutes: Routes = [
    
-    { path: 'sigin', component: SiginComponent },
-    { path: 'sigup', component: SigupComponent }
+    { path: 'sigin', component: SiginComponent, data: { animation: 'sigin' } },
+    { path: 'sigup', component: SigupComponent, data: { animation: 'sigup' } }
    
 ];
 

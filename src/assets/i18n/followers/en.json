@@ -1,0 +1,34 @@
+{
+    "app":{
+        "dashboard":{ 
+            "followers":{
+                "tabs":{
+                    "search":"Search",
+                    "followers":"Followers",
+                    "following": "Following"
+                },
+                "table":{
+                    "columnName":"Name",
+                    "buttonFollow":"Follow",
+                    "buttonUnFollow":"Unfollow",
+                    "buttonAction":{
+                       "follow":  "You has started following {{value}}",
+                       "unfollow":"You has stopped following {{value}}"   
+                    },
+                    "tooltips":{
+                        "reload":"Reload",
+                        "search":"Search for name"
+                        
+                    },
+                    "pagination":{
+                        "itemsPerPageLabel":"User per page:",
+                        "firstPageLabel":"First page",
+                        "nextPageLabel":"Nest page",
+                        "previousPageLabel":"Previous page",
+                        "lastPageLabel":"Last page"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoryCircleImageComponent } from './story-circle-image/story-circle-image.component';
-import { UserCircleImageComponent } from './user-circle-image/user-circle-image.component';
-
-
-
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
-  declarations: [StoryCircleImageComponent, UserCircleImageComponent],
+  declarations: [StoryCircleImageComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
-  exports: [StoryCircleImageComponent, UserCircleImageComponent]
+  exports: [StoryCircleImageComponent]
 })
 export class CircleImageModule { }

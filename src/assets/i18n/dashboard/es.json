@@ -1,0 +1,23 @@
+{
+    "app": {
+        "dashboard": {
+            "toolbar": {
+                "title": "Instante",
+                "tooltips": {
+                    "notifications": "Notificaciones",
+                    "tool": "Opciones"
+                },
+                "menu": {
+                    "profile": "Perfil",
+                    "logout": "Cerrar sesión"
+                }
+            },
+            "sidenav": {
+                "home": "Inicio",
+                "followers": "Seguidores",
+                "explorer": "Explorar",
+                "stories": "Historias"
+            }
+        }
+    }
+}

@@ -2,12 +2,15 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { log } from 'util';
 import { throwMatDuplicatedDrawerError } from '@angular/material';
+import { fadeAnimation } from 'src/app/config/animations/router-animation';
+import { RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
+  
 })
 export class SidenavComponent implements OnInit, OnDestroy {
   
@@ -83,4 +86,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
 
   }
+
+ 
 }
