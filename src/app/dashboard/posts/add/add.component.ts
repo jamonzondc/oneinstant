@@ -28,6 +28,7 @@ export class AddComponent implements OnInit {
 
   private image: File = null;
 
+  params:any;
 
   postForm: FormGroup;
 
@@ -39,6 +40,8 @@ export class AddComponent implements OnInit {
     this.postForm = this.formBuilder.group({
       post: ['']
     });
+     this.params={value:this.user.getUsername()};
+     
   }
 
   ngOnInit() {

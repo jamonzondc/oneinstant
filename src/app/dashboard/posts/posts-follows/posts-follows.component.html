@@ -69,16 +69,16 @@
                     <div fxFlex="86">
                         <mat-form-field color="accent" appearance="outline" style="width: 100%">
                             <mat-label>{{"home.posts.cardPost.action2.labelInputText"| translate}}</mat-label>
-                            <input matInput [(ngModel)]="inputsComments[index]"  placeholder="😮🧡💚💛💜❣💓">
-                            <mat-icon color="primary" matSuffix (click)="onEmoji(index)" style="cursor: pointer" matTooltip="{{'home.posts.cardPost.action2.labelEmoticons'| translate}}">
+                            <input matInput [(ngModel)]="inputsComments[index]"  placeholder="...">
+                            <mat-icon color="accent" matSuffix (click)="onEmoji(index)" style="cursor: pointer" matTooltip="{{'home.posts.cardPost.action2.labelEmoticons'| translate}}">
                                 insert_emoticon
                             </mat-icon>
                             <mat-hint>{{hint}}</mat-hint>
                         </mat-form-field>
                     </div>
                     <div fxFlex="13" style="width: 100%">
-                        <button mat-button color="primary" fxHide.xs fxHide.sm  style="margin-bottom: 1.34375em;" (click)="addComment(index, post.id)">{{"home.posts.cardPost.action2.buttonPublushing"| translate}}</button>
-                        <button mat-icon-button color="primary" fxHide.gt-sm style="margin-bottom: 1.34375em;" (click)="addComment(index, post.id)" matTooltip="{{'home.posts.cardPost.action2.buttonPublushing'| translate}}">
+                        <button mat-button color="accent" fxHide.xs fxHide.sm  style="margin-bottom: 1.34375em;" (click)="addComment(index, post.id)">{{"home.posts.cardPost.action2.buttonPublushing"| translate}}</button>
+                        <button mat-icon-button color="accent" fxHide.gt-sm style="margin-bottom: 1.34375em;" (click)="addComment(index, post.id)" matTooltip="{{'home.posts.cardPost.action2.buttonPublushing'| translate}}">
                             <mat-icon>send</mat-icon>
                         </button>
                     </div>

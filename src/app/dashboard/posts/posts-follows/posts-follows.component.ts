@@ -20,14 +20,14 @@ import { AddComponent } from '../add/add.component';
   styleUrls: ['./posts-follows.component.scss']
 })
 export class PostsFollowsComponent implements OnInit {
-  
+
   private url: String = environment.urlApi;
 
   private user: User;
 
-  inputsComments:String[]=[];
+  inputsComments: String[] = [];
 
-  
+
   @ViewChild('paginator', { read: MatPaginator, static: false }) paginator: MatPaginator;
   isLoadingResults: boolean = false;
   dataSource: Post[] = [];
@@ -38,17 +38,17 @@ export class PostsFollowsComponent implements OnInit {
   };
 
   constructor(private postsService: PostsService,
-    private snackBar: MatSnackBar, 
-    private followersServices: FollowersService, 
-    private imageService: ImageService, 
-    public dialog: MatDialog,  
+    private snackBar: MatSnackBar,
+    private followersServices: FollowersService,
+    private imageService: ImageService,
+    public dialog: MatDialog,
     private postService: PostsService,
     private changeDetectorRefs: ChangeDetectorRef) {
     this.user = new User();
     this.user.id = 1;
     this.user.username = 'jjj';
     this.count();
-   
+
   }
 
   ngOnInit(): void {
@@ -116,20 +116,35 @@ export class PostsFollowsComponent implements OnInit {
       });
   }
 
-  public onEmoji(index:number){
+  public onEmoji(index: number) {
     const dialogRef = this.dialog.open(EmojisDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      this.inputsComments[index]+=result.emoji.native;
+      if (this.inputsComments[index] == null || this.inputsComments[index] == undefined) {
+        this.inputsComments[index] = '' + result.emoji.native;
+      }
+      else
+        this.inputsComments[index] += '' + result.emoji.native;
       this.changeDetectorRefs.detectChanges()
     });
   }
-  
-  public addComment(index:number, postId:number){
+
+  public addComment(index: number, postId: number) {
     alert(this.inputsComments[index]);
   }
- 
+
+  public onOpenModal():void{
+    const dialogRef = this.dialog.open(AddComponent,{width:'600px' , data:this.user});
+    dialogRef.afterClosed().subscribe(result => {
+      if(result instanceof Post)
+      {
+        this.dataSource.splice(0,0,result);
+        this.changeDetectorRefs.detectChanges()
+      }
+      
+    });
+  }
 }
 
 @Component({
@@ -138,7 +153,7 @@ export class PostsFollowsComponent implements OnInit {
 })
 export class EmojisDialog {
   constructor(
-    public dialogRef: MatDialogRef<EmojisDialog>) {}
+    public dialogRef: MatDialogRef<EmojisDialog>) { }
 
   onNoClick(): void {
     this.dialogRef.close();

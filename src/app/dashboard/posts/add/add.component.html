@@ -7,7 +7,7 @@
             style="margin-bottom: 1.34375em;">
         </app-story-circle-image>
         <mat-form-field color="accent" appearance="outline" style="width: 100%">
-            <mat-label>{{"home.posts.cardCreatePost.labelInputText"| translate}}</mat-label>
+            <mat-label>{{"home.posts.cardCreatePost.labelInputText"| translate:params}}</mat-label>
             <input matInput formControlName="post" placeholder="...">
             <mat-icon color="primary" matTooltip="{{'home.posts.cardCreatePost.labelToolTip'| translate}}" matSuffix (click)="fileInput.click()" style="cursor: pointer">image</mat-icon>
             <mat-hint>{{hint}}</mat-hint>
