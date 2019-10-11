@@ -1,0 +1,25 @@
+<mat-card>
+    <mat-list>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3 matSubheader>Historias</h3>
+        <span matSubheader>ver todas</span>
+      </div>
+
+      <mat-list-item (click)="openMatDialog()">
+        <button mat-mini-fab matListAvatar color="accent" style="height: 42px; width: 42px;">
+          <mat-icon>add</mat-icon>
+        </button>
+        <h4 mat-line>Tu historia</h4>
+      </mat-list-item>
+      <cdk-virtual-scroll-viewport itemSize="72" class="example-viewport">
+        <mat-list-item *cdkVirtualFor="let item of dataSource; let odd=odd" class="example-item" >
+          <app-story-circle-image matListAvatar [image]="item?.user?.image" [borderColor]="'pink'"
+            style="display: table; vertical-align: middle;"></app-story-circle-image>
+          <h4 mat-line>{{item.id || 'Loading...'}}</h4>
+          <p mat-line> hace 5 horas </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </cdk-virtual-scroll-viewport>
+
+    </mat-list>
+  </mat-card>

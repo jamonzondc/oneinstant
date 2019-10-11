@@ -1,0 +1,95 @@
+<div>
+    <div align="left" fxHide.xs fxHide.sm>
+        <button mat-stroked-button color="accent" (click)="onOpenModal()">{{"home.posts.cardCreatePost.buttonPost"| translate}}</button>
+    </div>
+
+    <mat-card class="example-card" *ngFor="let post of dataSource; let index=index;">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-header>
+                <app-story-circle-image mat-card-avatar [image]="'avatar:svg-5'" [borderColor]="'blue'">
+                </app-story-circle-image>
+                <mat-card-title>{{post.user.username}}</mat-card-title>
+                <mat-card-subtitle>{{post.timestamp}}</mat-card-subtitle>
+            </mat-card-header>
+            <button mat-icon-button [matMenuTriggerFor]="menuPublishing" matTooltip="{{'home.posts.cardPost.header.buttonTool'| translate}}">
+                <mat-icon >more_horiz</mat-icon>
+            </button>
+        </div>
+        <mat-menu #menuPublishing="matMenu">
+            <ng-template matMenuContent>
+                <button mat-menu-item *ngIf="user.id!= post.user.id" (click)="unFollowing(post.user)">
+                    <span class="warn">{{"home.posts.cardPost.header.buttonUnFollow"| translate}}</span>
+                </button>
+                <button mat-menu-item *ngIf="user.id== post.user.id" (click)="delete(post.id)">
+                    <span class="warn">{{"home.posts.cardPost.header.buttonDeletePost"| translate}}</span>
+                </button>
+                <button mat-menu-item (click)="goToPublishing(post.id)">
+                    <span>{{"home.posts.cardPost.header.buttonWatchPost"| translate}}</span>
+                </button>
+
+            </ng-template>
+        </mat-menu>
+
+        <img id="imagePost" *ngIf="post.image!=null && post.image!=''" mat-card-image [src]="loadImage(post.image, post.id)">
+        <mat-card-actions>
+            <button class="action-button-publishin" mat-icon-button  matBadge="8"
+                matBadgePosition="above after" matBadgeColor="accent" matTooltip="{{'home.posts.cardPost.action1.buttonlike'| translate}}">
+                <mat-icon class="icon-favorite">favorite_border</mat-icon>
+            </button>
+
+            <button mat-icon-button matTooltip="{{'home.posts.cardPost.action1.buttonComment'| translate}}">
+                <mat-icon class="icon-favorite">mode_comment</mat-icon>
+            </button>
+
+        </mat-card-actions>
+        <mat-card-content>
+            <p>
+                <a><b>{{post.user.username}}</b></a>
+                {{post.text}}
+            </p>
+        </mat-card-content>
+        <mat-card-content>
+            <a style="color: darkgray; margin-bottom: 10px;">{{"home.posts.cardPost.content.labelComment"| translate}}</a>
+            <div style="padding-right: 30px;">
+                <p>
+                    <a><b>dbrojas</b></a>
+                    {{' The Shiba Inu is the smallest of the six original and distinct'}}
+
+                </p>
+                <p>
+                    <a><b>ldelcampo</b></a>
+                    {{' The Shiba Inu is the smallest of the six original and distinct'}}
+
+                </p>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+           
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div fxFlex="86">
+                        <mat-form-field color="accent" appearance="outline" style="width: 100%">
+                            <mat-label>{{"home.posts.cardPost.action2.labelInputText"| translate}}</mat-label>
+                            <input matInput [(ngModel)]="inputsComments[index]"  placeholder="😮🧡💚💛💜❣💓">
+                            <mat-icon color="primary" matSuffix (click)="onEmoji(index)" style="cursor: pointer" matTooltip="{{'home.posts.cardPost.action2.labelEmoticons'| translate}}">
+                                insert_emoticon
+                            </mat-icon>
+                            <mat-hint>{{hint}}</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="13" style="width: 100%">
+                        <button mat-button color="primary" fxHide.xs fxHide.sm  style="margin-bottom: 1.34375em;" (click)="addComment(index, post.id)">{{"home.posts.cardPost.action2.buttonPublushing"| translate}}</button>
+                        <button mat-icon-button color="primary" fxHide.gt-sm style="margin-bottom: 1.34375em;" (click)="addComment(index, post.id)" matTooltip="{{'home.posts.cardPost.action2.buttonPublushing'| translate}}">
+                            <mat-icon>send</mat-icon>
+                        </button>
+                    </div>
+                </div>
+          
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-paginator color="accent" #paginator [pageIndex]="dataConfig.pageIndex"
+    [pageSize]="dataConfig.pageSize" [pageSizeOptions]="[5,10,50, 100]" [length]="dataConfig.length"
+    showFirstLastButtons (page)="onPaginate($event)"></mat-paginator>
+</div>
+
+<app-speed-dial-fab fxHide.gt-sm></app-speed-dial-fab>

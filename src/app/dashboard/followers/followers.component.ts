@@ -102,10 +102,13 @@ export class FollowersComponent {
       });
   }
 
+  a:number=1;
   private findAllNotFollowers(): void {
     this.isLoadingResultsTab1 = true;
     this.followersServices.find(this.user.id, this.dataConfigTab1.search, ((this.dataConfigTab1.pageIndex) * this.dataConfigTab1.pageSize).toString(), this.dataConfigTab1.pageSize, 'notfollowers').subscribe(
       response => {
+      
+
         this.dataSourceTab1 = response;
         this.isLoadingResultsTab1 = false;
         //await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => this.isLoadingResults = false);
@@ -228,7 +231,7 @@ export class FollowersComponent {
     this.findAllFollowing();
   }
 
-  unFollowing(follower: User): void {
+  public unFollowing(follower: User): void {
     follower.visible = !follower.visible;
     this.followersServices.stopFollowing(this.user.id, follower.id).subscribe(
       response => {

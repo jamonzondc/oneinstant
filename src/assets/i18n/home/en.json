@@ -1,44 +1,32 @@
 {
-    "app":{
-        "toolbar":{
-            "title":"Instante",
-            "tooltips":{
-                "notifications":"Notifications",
-                "tool":"Tools"
+    "home": {
+        "posts": {
+            "cardCreatePost": {
+                "buttonPost": "Create post",
+                "labelInputText": "¿What's on your mind, {{value}}?",
+                "labelToolTip": "Add imagen",
+                "buttonAccept": "Post",
+                "buttonCancel": "Cancel"
             },
-            "menu":{
-                "profile":"Profile",
-                "logout":"Log out"
-            }
-        },
-        "sidenav":{
-            "home":"Home",
-            "followers":"Followers",
-            "explorer": "Explorer"
-        },
-        "dashboard":{
-            "followers":{
-                "tabs":{
-                    "search":"Buscar",
-                    "followers":"Seguidores",
-                    "following": "Seguidos"
+            "cardPost": {
+                "header": {
+                    "timestamp": "",
+                    "buttonTool": "Tools",
+                    "buttonDeletePost": "Delete post",
+                    "buttonUnFollow": "Unfollow",
+                    "buttonWatchPost": "Go to post"
                 },
-                "table":{
-                    "columnName":"Nombre",
-                    "buttonFollow":"Seguir",
-                    "buttonUnFollow":"Dejar de seguir",
-                    "tooltips":{
-                        "refresh":"Recargar",
-                        "search":"Buscar por nombre"
-                        
-                    },
-                    "pagination":{
-                        "itemsPerPageLabel":"Usuarios por página:",
-                        "firstPageLabel":"Primera página",
-                        "nextPageLabel":"Página siguiente",
-                        "previousPageLabel":"Página anterior",
-                        "lastPageLabel":"Última página"
-                    }
+                "action1": {
+                    "buttonlike": "Like",
+                    "buttonComment": "Comment post"
+                },
+                "content": {
+                    "labelComment": "View all {{value}} comments"
+                },
+                "action2": {
+                    "labelInputText": "Add comment",
+                    "labelEmoticons":"Add emoji",
+                    "buttonPublushing": "Comment"
                 }
             }
         }

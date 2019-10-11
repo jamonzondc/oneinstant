@@ -13,6 +13,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MyPerfectScrollBarModule } from 'src/app/config/modules/my-perfect-scroll-bar/my-perfect-scroll-bar.module';
 import { CircleImageModule } from 'src/app/config/modules/circle-image/circle-image.module';
 import { InternationalizationService } from 'src/app/config/services/i18n/internationalization.service';
+import { PostsFollowsComponent } from '../posts/posts-follows/posts-follows.component';
+import { PostsModule } from '../posts/posts.module';
+import { StoriesModule } from '../stories/stories.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/home/', '.json');
@@ -30,6 +33,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ScrollingModule,
     MyPerfectScrollBarModule,
     CircleImageModule,
+    PostsModule,
+    StoriesModule,
     
     HttpClientModule,
     TranslateModule.forChild({

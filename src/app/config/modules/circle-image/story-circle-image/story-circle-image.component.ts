@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ThemeService } from 'src/app/config/services/theme/theme.service';
+import { ImageService } from 'src/app/config/services/image/image.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -9,6 +11,8 @@ import { ThemeService } from 'src/app/config/services/theme/theme.service';
 })
 export class StoryCircleImageComponent implements OnInit {
 
+  private url: String = environment.urlApi;
+
   @Input()
   image: string = 'avatar:svg-1';
 
@@ -16,21 +20,21 @@ export class StoryCircleImageComponent implements OnInit {
   borderColor: string = '#69f0ae';
 
   @Input()
-  background: string='white';
+  background: string = 'white';
 
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: ThemeService, private imageService: ImageService) {
   }
 
   ngOnInit() {
     if (this.background == 'white') {
-      let isSubscribe=false;
+      let isSubscribe = false;
       this.themeService.isDarkTheme.subscribe(
         isDarkTheme => {
-          isSubscribe=true;
+          isSubscribe = true;
           this.background = (isDarkTheme) ? '#424242' : 'white';
         }
       );
-      if(!isSubscribe){
+      if (!isSubscribe) {
         this.background = (this.themeService.isDarkThemeB) ? '#424242' : 'white';
       }
     }
@@ -49,5 +53,7 @@ export class StoryCircleImageComponent implements OnInit {
   }
 
 
-
+  public loadImage(): string {
+    return `${this.url}auth/image/${this.image}/users`;
+  }
 }

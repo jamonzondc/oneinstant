@@ -50,3 +50,6 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   border-radius: 0 100px 100px 0;
   //width: 85%!important;
 }
+.warn {
+  color: mat-color($warn);
+}

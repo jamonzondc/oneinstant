@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{"home.posts.cardCreatePost.buttonPost"| translate}}</h1>
+<form [formGroup]="postForm" (submit)="onSubmit(postForm)">
+    <input #fileInput style="display: none;" type="file" accept=".jpg, .jpeg, .png" (change)="onFileSelected($event)">
+
+    <mat-card-header fxLayout="row" fxLayoutAlign="start center" style="width: 100%; margin-bottom: 40px!important;">
+        <app-story-circle-image mat-card-avatar [image]="'avatar:svg-5'" [borderColor]="'blue'"
+            style="margin-bottom: 1.34375em;">
+        </app-story-circle-image>
+        <mat-form-field color="accent" appearance="outline" style="width: 100%">
+            <mat-label>{{"home.posts.cardCreatePost.labelInputText"| translate}}</mat-label>
+            <input matInput formControlName="post" placeholder="...">
+            <mat-icon color="primary" matTooltip="{{'home.posts.cardCreatePost.labelToolTip'| translate}}" matSuffix (click)="fileInput.click()" style="cursor: pointer">image</mat-icon>
+            <mat-hint>{{hint}}</mat-hint>
+        </mat-form-field>
+
+
+    </mat-card-header>
+    <mat-progress-bar *ngIf="isVisibleProgressBar" color="primary" mode="determinate" [value]="progressBarValue">
+    </mat-progress-bar>
+
+    <div mat-dialog-actions align="end">
+        <button mat-stroked-button color="warn" type="button" (click)="onNoClick()">{{"home.posts.cardCreatePost.buttonCancel"| translate}}</button>
+        <button mat-stroked-button color="primary" type="submit" cdkFocusInitial [disabled]="">{{"home.posts.cardCreatePost.buttonAccept"| translate}}</button>
+    </div>
+</form>

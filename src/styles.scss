@@ -22,10 +22,10 @@ html, body {
 .ps__thumb-y {
   //background-color: mat-color($dark-accent) !important;
 }
-mat-card {
-  margin: 8px;
-}
 
+#input-post .mat-form-field-wrapper{
+  //padding-bottom: 0 !important;
+}
 
 #mat-sidenavChat .mat-drawer-inner-container {
   overflow: hidden !important;

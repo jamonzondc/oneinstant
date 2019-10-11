@@ -1,78 +1,25 @@
-<div id="inicio" fxLayout="column" fxLayout.gt-md="row" style="padding: 14px;">
+<div id="inicio" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="start center" fxLayoutAlign.gt-sm="center none" style="padding: 14px;">
 
-  <div fxFlex.gt-sm="66" style="padding: 8px;">
-    <mat-card class="example-card">
-      <div xLayout="row" fxLayoutAlign="space-between center">
-        <mat-card-header>
-          <app-story-circle-image mat-card-avatar [image]="'avatar:svg-4'" [borderColor]="'blue'">
-          </app-story-circle-image>
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        </mat-card-header>
-        <button mat-icon-button>
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-      </div>
-
-      <img mat-card-image src="/assets/images/shiba2.jpg" alt="Photo of a Shiba Inu">
-      <mat-card-actions>
-        <button class="action-button-publishin" mat-icon-button color="accent" matBadge="8" matBadgePosition="above after" matBadgeColor="primary">
-          <mat-icon class="icon-favorite">favorite_border</mat-icon>
-        </button>
-
-        <button mat-icon-button color="accent">
-          <mat-icon class="icon-favorite">mode_comment</mat-icon>
-        </button>
-
-
-
-      </mat-card-actions>
-      <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-          bred for hunting.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
-
+  <div fxFlex fxFlex.gt-sm="60"  style="padding: 8px;">
+    <app-posts-follows></app-posts-follows>
   </div>
-  <div fxFlex.gt-sm="33" style="padding: 8px;">
+  <div fxFlex fxFlex.gt-sm="40" fxHide.xs fxHide.sm style="padding: 8px;">
+    <app-vertical-view></app-vertical-view>
     <mat-card>
-
-
-
-      <mat-list>
-        <div xLayout="row" fxLayoutAlign="space-between center">
-          <h3 matSubheader>Historias</h3>
-          <span matSubheader>ver todas</span>
-        </div>
-
-        <mat-list-item (click)="openMatDialog()">
-          <button mat-mini-fab matListAvatar color="accent" style="height: 42px; width: 42px;">
-            <mat-icon>add</mat-icon>
-          </button>
-          <h4 mat-line>Tu historia</h4>
-        </mat-list-item>
-        <cdk-virtual-scroll-viewport itemSize="72" class="example-viewport">
-          <mat-list-item *cdkVirtualFor="let item of dataSource; let odd=odd" class="example-item" style="">
-            <app-story-circle-image matListAvatar [image]="item?.user?.image" [borderColor]="'pink'"
-              style="display: table; vertical-align: middle;"></app-story-circle-image>
-            <h4 mat-line>{{item.id || 'Loading...'}}</h4>
-            <p mat-line> hace 5 horas </p>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-        </cdk-virtual-scroll-viewport>
-
-      </mat-list>
-
+      <h3>Sugerencias</h3>
+      <ul>
+        <li>fweeff</li>
+        <li>fwefewf</li>
+        <li>ewfwefew</li>
+        <li>wefwef</li>
+        <li>ewfwfwf</li>
+      </ul>
     </mat-card>
   </div>
+
+  
 </div>
+
 
 <!--mat-list>
   <h3 matSubheader>Historias</h3>

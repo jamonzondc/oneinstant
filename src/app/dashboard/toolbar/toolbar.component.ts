@@ -47,4 +47,6 @@ export class ToolbarComponent implements OnInit {
     this.trigger.emit();
   }
 
+
+  
 }

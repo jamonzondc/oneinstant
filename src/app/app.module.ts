@@ -19,10 +19,6 @@ import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AppRoutingModule } from './app-routing.module';
 import { InternationalizationService } from './config/services/i18n/internationalization.service';
-import { CustomSnackBarComponent } from './config/modules/custom-snack-bar/custom-snack-bar.component';
-
-
-
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -31,7 +27,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    
+    
     
 
 

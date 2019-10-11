@@ -26,7 +26,7 @@ export class FollowersService {
       .set('search', search)
       .set('offset', offset)
       .set('limit', limit);
-    return this.httpClient.get<User[]>(`${this.url}followers/${idUser}/${url}`, { params: params });
+    return this.httpClient.get<User[]>(`${this.url}followers/${idUser}/${url}`, { params });
   }
   
 

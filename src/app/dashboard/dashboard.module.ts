@@ -22,6 +22,8 @@ import { StoriesComponent } from './stories/stories.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { InternationalizationService } from '../config/services/i18n/internationalization.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PostsFollowsComponent } from './posts/posts-follows/posts-follows.component';
+import { MyPostsComponent } from './posts/my-posts/my-posts.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,6 +37,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToolbarComponent,
     FooterComponent,
     StoriesComponent
+
+   
 
   ],
   imports: [
