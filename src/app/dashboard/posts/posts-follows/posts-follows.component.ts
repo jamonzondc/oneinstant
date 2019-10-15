@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { User } from 'src/app/model/user';
 import { MatPaginator, MatSnackBar, MatDialog, PageEvent, MatDialogRef } from '@angular/material';
 import { PostsService } from '../posts.service';
@@ -18,6 +18,7 @@ import { AddComponent } from '../add/add.component';
   selector: 'app-posts-follows',
   templateUrl: './posts-follows.component.html',
   styleUrls: ['./posts-follows.component.scss']
+  
 })
 export class PostsFollowsComponent implements OnInit {
 
@@ -42,7 +43,6 @@ export class PostsFollowsComponent implements OnInit {
     private followersServices: FollowersService,
     private imageService: ImageService,
     public dialog: MatDialog,
-    private postService: PostsService,
     private changeDetectorRefs: ChangeDetectorRef) {
     this.user = new User();
     this.user.id = 1;
@@ -67,13 +67,16 @@ export class PostsFollowsComponent implements OnInit {
         alert('error');
       });
   }
+  public onB(e) {
+    alert(e);
+  }
 
   private findAll(): void {
     this.isLoadingResults = true;
     this.postsService.findAllPostsFollowers(this.user.id, ((this.dataConfig.pageIndex) * this.dataConfig.pageSize).toString(), this.dataConfig.pageSize).subscribe(
       response => {
         this.dataSource = response;
-
+        this.changeDetectorRefs.detectChanges();
         this.isLoadingResults = false;
         //await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => this.isLoadingResults = false);
       },
@@ -115,6 +118,16 @@ export class PostsFollowsComponent implements OnInit {
         alert('error');
       });
   }
+  public delete(postId: number, index: number): void {
+    this.postsService.delete(postId).subscribe(response => {
+      this.count();
+
+      this.snackBar.openFromComponent(CustomSnackBarComponent, {
+        duration: 2000,
+        data: { "lang": 'home.posts.cardPost.header.snackBarToDelete' }
+      });
+    });
+  }
 
   public onEmoji(index: number) {
     const dialogRef = this.dialog.open(EmojisDialog);
@@ -134,15 +147,14 @@ export class PostsFollowsComponent implements OnInit {
     alert(this.inputsComments[index]);
   }
 
-  public onOpenModal():void{
-    const dialogRef = this.dialog.open(AddComponent,{width:'600px' , data:this.user});
+  public onOpenModal(): void {
+    const dialogRef = this.dialog.open(AddComponent, { width: '600px', data: this.user });
     dialogRef.afterClosed().subscribe(result => {
-      if(result instanceof Post)
-      {
-        this.dataSource.splice(0,0,result);
+      if (result instanceof Post) {
+        this.dataSource.splice(0, 0, result);
         this.changeDetectorRefs.detectChanges()
       }
-      
+
     });
   }
 }

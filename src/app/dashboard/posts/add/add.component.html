@@ -9,7 +9,7 @@
         <mat-form-field color="accent" appearance="outline" style="width: 100%">
             <mat-label>{{"home.posts.cardCreatePost.labelInputText"| translate:params}}</mat-label>
             <input matInput formControlName="post" placeholder="...">
-            <mat-icon color="primary" matTooltip="{{'home.posts.cardCreatePost.labelToolTip'| translate}}" matSuffix (click)="fileInput.click()" style="cursor: pointer">image</mat-icon>
+            <mat-icon color="accent" matTooltip="{{'home.posts.cardCreatePost.labelToolTip'| translate}}" matSuffix (click)="fileInput.click()" style="cursor: pointer">image</mat-icon>
             <mat-hint>{{hint}}</mat-hint>
         </mat-form-field>
 
@@ -20,6 +20,6 @@
 
     <div mat-dialog-actions align="end">
         <button mat-stroked-button color="warn" type="button" (click)="onNoClick()">{{"home.posts.cardCreatePost.buttonCancel"| translate}}</button>
-        <button mat-stroked-button color="primary" type="submit" cdkFocusInitial [disabled]="">{{"home.posts.cardCreatePost.buttonAccept"| translate}}</button>
+        <button mat-stroked-button color="accent" type="submit" cdkFocusInitial [disabled]="">{{"home.posts.cardCreatePost.buttonAccept"| translate}}</button>
     </div>
 </form>

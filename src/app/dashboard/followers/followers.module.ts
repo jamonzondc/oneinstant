@@ -14,13 +14,14 @@ import { MyPerfectScrollBarModule } from 'src/app/config/modules/my-perfect-scro
 import { CircleImageModule } from 'src/app/config/modules/circle-image/circle-image.module';
 import { InternationalizationService } from 'src/app/config/services/i18n/internationalization.service';
 import { CustomSnackBarModule } from 'src/app/config/modules/custom-snack-bar/custom-snack-bar.module';
+import { TableComponent } from './table/table.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/followers/', '.json');
 }
 
 @NgModule({
-  declarations: [FollowersComponent],
+  declarations: [FollowersComponent, TableComponent],
   imports: [
     CommonModule,
     FormsModule,

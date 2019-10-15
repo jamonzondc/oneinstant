@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatInputModule, MatButtonModule, MatCheckboxModule, MatSelectModule, MatMenuModule, MatBadgeModule, MatTabsModule, MatPaginatorModule, MatTableModule, MatProgressSpinnerModule, MatProgressBarModule, MatTooltipModule, MatSnackBarModule, MatDialogModule, MatSliderModule, MatSlideToggleModule, MatExpansionModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatCheckboxModule, MatSelectModule, MatMenuModule, MatBadgeModule, MatTabsModule, MatPaginatorModule, MatTableModule, MatProgressSpinnerModule, MatProgressBarModule, MatTooltipModule, MatSnackBarModule, MatDialogModule, MatSliderModule, MatSlideToggleModule, MatExpansionModule, MatGridListModule } from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -35,7 +35,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatDialogModule,
     MatSlideToggleModule,
     MatBadgeModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatGridListModule
   ],
   exports:[
     MatInputModule, 
@@ -59,7 +60,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatTooltipModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatGridListModule
   ]
 })
 export class MaterialModule { 

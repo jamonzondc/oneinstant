@@ -1,0 +1,72 @@
+<mat-card style="margin:14px;">
+  <mat-toolbar color="primary" class="example-toolbar" *ngIf="!isFilterShow">
+    <h2 class="example-app-name">{{title}}</h2>
+    <span class="example-spacer"></span>
+    <button mat-icon-button matTooltip="{{'app.dashboard.followers.table.tooltips.reload'| translate}}">
+      <mat-icon class="example-icon" aria-hidden="false" (click)="_load()">refresh</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="{{'app.dashboard.followers.table.tooltips.search'| translate}}">
+      <mat-icon class="example-icon" aria-hidden="false" (click)="isFilterShow=true">filter_list</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="example-toolbar" *ngIf="isFilterShow">
+    <mat-form-field color="accent" appearance="outline">
+      <mat-label>buscar por nombre</mat-label>
+      <input matInput [(ngModel)]="search">
+      <div matSuffix class="secondary-text" fxLayout="row">
+        <mat-icon (click)="_filter(search)">search</mat-icon>
+        <mat-icon (click)="isFilterShow=false">close</mat-icon>
+      </div>
+    </mat-form-field>
+
+  </div>
+
+  <mat-progress-bar mode="query" color="accent" *ngIf="isLoadingResults"></mat-progress-bar>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{"app.dashboard.followers.table.columnName"| translate}} </th>
+      <td mat-cell *matCellDef="let row;" class="single-row">
+        <div fxLayout="row" fxLayoutAlign="start center" style="padding-top: 8px; padding-bottom: 8px;">
+          <app-story-circle-image matListAvatar [image]="row.image" [borderColor]="'pink'"
+            style="display: table; vertical-align: middle; margin-right: 8px;"></app-story-circle-image>
+          <a class="name-user-in-table" matLine> {{row.fullname}} </a>
+          <span class="example-spacer"></span>
+
+          <button mat-stroked-button color="accent" *ngIf="indexTab==0 && row.visible" (click)="_follow(row)">
+            {{"app.dashboard.followers.table.buttonFollow"| translate}}
+          </button>
+          <button mat-flat-button color="accent" *ngIf="indexTab==0 && !row.visible" (click)="_unFollow(row)">
+            {{"app.dashboard.followers.table.buttonUnFollow"| translate}}
+          </button>
+
+          <button mat-flat-button color="accent" *ngIf="indexTab==2 && row.visible" 
+            (click)="_unFollow(row)">
+            {{"app.dashboard.followers.table.buttonUnFollow"| translate}}
+          </button>
+          <button mat-stroked-button color="accent" *ngIf="indexTab==2 && !row.visible" 
+            (click)="_follow(row)">
+            {{"app.dashboard.followers.table.buttonFollow"| translate}}
+          </button>
+
+          <!--button mat-icon-button fxHide.gt-xs matTooltip="{{'app.dashboard.followers.table.buttonFollow'| translate}}"
+            *ngIf="row.visible" (click)="_follow(row)">
+            <mat-icon color="accent" fxHide.gt-xs class="example-icon" aria-hidden="false">person_add</mat-icon>
+          </button>
+
+          <button mat-icon-button fxHide.gt-xs
+            matTooltip="{{'app.dashboard.followers.table.buttonUnFollow'| translate}}" *ngIf="row.visible"
+            (click)="stopFollowing(row)">
+            <mat-icon color="accent" fxHide.gt-xs class="example-icon" aria-hidden="false">close</mat-icon>
+          </button-->
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+  <mat-paginator color="accent" #paginatorTab1 [pageIndex]="pagination.pageIndex" [pageSize]="pagination.pageSize"
+    [pageSizeOptions]="[5,10,50, 100]" [length]="count" showFirstLastButtons (page)="_paginate($event)"></mat-paginator>
+</mat-card>

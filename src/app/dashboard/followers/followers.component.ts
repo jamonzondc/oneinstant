@@ -1,253 +1,215 @@
-import { Component, OnInit, ViewChild, ViewChildren, AfterViewInit, QueryList } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Type } from '@angular/compiler';
-import { async } from 'rxjs/internal/scheduler/async';
-import { MatSnackBar, MatTabChangeEvent } from '@angular/material';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material';
 import { SiginService } from 'src/app/auth/sigin/sigin.service';
 import { User } from 'src/app/model/user';
 import { FollowersService } from './followers.service';
 import { Follower } from 'src/app/model/follower';
-import { log } from 'util';
 import { CustomSnackBarComponent } from 'src/app/config/modules/custom-snack-bar/custom-snack-bar.component';
-
-
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { Pagination } from './pagination';
 
 @Component({
   selector: 'app-followers',
   templateUrl: './followers.component.html',
   styleUrls: ['./followers.component.scss'],
-  providers:[]
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class FollowersComponent {
+export class FollowersComponent implements OnInit, OnDestroy {
+ 
 
+  countTab1$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  
+  countTab2$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  countTab3$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  dataSourceTab1$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+
+  dataSourceTab2$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+
+  dataSourceTab3$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+
+  private countSubscriptionTab1:Subscription;
+
+  private countSubscriptionTab2:Subscription;
+
+  private countSubscriptionTab3:Subscription;
+
+  private dataSourceSubscriptionTab1:Subscription;
+
+  private dataSourceSubscriptionTab2:Subscription;
+
+  private dataSourceSubscriptionTab3:Subscription;
 
   private user: User;
-  displayedColumns: string[] = ['name'];
 
-  //Tab 1 
-  @ViewChild('paginatorTab1', { read: MatPaginator, static: false }) paginatorTab1: MatPaginator;
-  isLoadingResultsTab1: boolean = false;
-  dataSourceTab1: User[] = [];
-  dataConfigTab1: any = {
-    search: '',
-    pageIndex: 0,
-    pageSize: 5,// Cantidad de items a mostrar por página
-    length: 0// Cantidad total de itmes
-  };
-  //Tab 2
-  @ViewChild('paginatorTab2', { read: MatPaginator, static: false }) paginatorTab2: MatPaginator;
-  isLoadingResultsTab2: boolean = false;
-  dataSourceTab2: User[] = [];
-  dataConfigTab2: any = {
-    search: '',
-    pageIndex: 0,
-    pageSize: 5,// Cantidad de items a mostrar por página
-    length: 0// Cantidad total de itmes
-  };
-  //Tab 3
-  @ViewChild('paginatorTab3', { read: MatPaginator, static: false }) paginatorTab3: MatPaginator;
-  isLoadingResultsTab3: boolean = false;
-  dataSourceTab3: User[] = [];
-  dataConfigTab3: any = {
-    search: '',
-    pageIndex: 0,
-    pageSize: 5,// Cantidad de items a mostrar por página
-    length: 0// Cantidad total de itmes
-  };
+  private paginationTab1: Pagination = new Pagination();;
+
+  private paginationTab2: Pagination = new Pagination();;
+
+  private paginationTab3: Pagination = new Pagination();;
 
 
-  constructor(private followersServices: FollowersService, private snackBar: MatSnackBar, private siginService: SiginService) {
+  constructor(private followersServices: FollowersService, private snackBar: MatSnackBar) {
     this.user = new User();
     this.user.id = 1;
   }
 
+  //Hooks
   ngOnInit(): void {
-    this.countNotFollowers();
-    this.countFollowers();
-    this.countFollowing();
-
+    this.loadTab1();
+    this.loadTab2();
+    this.loadTab3();
   }
 
-  ngAfterViewInit(): void {
-
+  ngOnDestroy(): void {
+    this.countSubscriptionTab1.unsubscribe();
+    this.countSubscriptionTab2.unsubscribe();
+    this.countSubscriptionTab3.unsubscribe();
+    this.dataSourceSubscriptionTab1.unsubscribe();
+    this.dataSourceSubscriptionTab2.unsubscribe();
+    this.dataSourceSubscriptionTab3.unsubscribe();
   }
-
-
-  onTabChange(matTabEventeChange: MatTabChangeEvent) {
-    
-/*
-    if (matTabEventeChange.index == 0) {
-      this.paginatorTab1.pageIndex = this.dataConfigTab1.pageIndex;
+  public selectedIndexChange(index: number) {
+    switch (index) {
+      case 0: {
+        this.paginationTab1 = new Pagination();
+        this.loadTab1();
+        break;
+      }
+      case 1: {
+        this.paginationTab2 = new Pagination();
+        this.loadTab2();
+        break;
+      }
+      case 2: {
+        this.paginationTab3 = new Pagination();
+        this.loadTab3();
+        break;
+      }
     }
-    else if (matTabEventeChange.index == 1) {
-      this.paginatorTab2.pageIndex = this.dataConfigTab2.pageIndex;
-    }
-    else {
-      this.paginatorTab3.pageIndex = this.dataConfigTab3.pageIndex;
-    }*/
+  }
+  //Load
+  public loadTab1(): void {
+    this.countTab1();
+    this.dataSourceTab1();
   }
 
-  //Tab 1
-  private countNotFollowers(): void {
-
-    this.followersServices.count(this.user.id, this.dataConfigTab1.search, 'notfollowers').subscribe(
-      response => {
-        this.dataConfigTab1.length = response;
-        this.findAllNotFollowers();
-      },
-      error => {
-        alert('error');
-      });
+  public loadTab2(): void {
+    this.countTab2();
+    this.dataSourceTab2();
   }
 
-  a:number=1;
-  private findAllNotFollowers(): void {
-    this.isLoadingResultsTab1 = true;
-    this.followersServices.find(this.user.id, this.dataConfigTab1.search, ((this.dataConfigTab1.pageIndex) * this.dataConfigTab1.pageSize).toString(), this.dataConfigTab1.pageSize, 'notfollowers').subscribe(
-      response => {
-      
-
-        this.dataSourceTab1 = response;
-        this.isLoadingResultsTab1 = false;
-        //await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => this.isLoadingResults = false);
-      },
-      error => {
-        this.isLoadingResultsTab1 = false;
-        alert('error');
-      });
+  public loadTab3(): void {
+    this.countTab3();
+    this.dataSourceTab3();
   }
 
-  loadTab1(): void {
-    this.countNotFollowers();
+  //Filter
+  public filterTab1(name: string): void {
+    this.paginationTab1.search = name;
+    this.loadTab1();
   }
 
-  public following(user: User): void {
+  public filterTab2(name: string): void {
+    this.paginationTab2.search = name;
+    this.loadTab2();
+  }
+
+  public filterTab3(name: string): void {
+    this.paginationTab3.search = name;
+    this.loadTab3();
+  }
+
+  //Pagination
+  public paginateTab1(event: PageEvent): void {
+    this.paginationTab1.pageSize = event.pageSize;
+    this.paginationTab1.pageIndex = event.pageIndex;
+    this.dataSourceTab1();
+  }
+
+  public paginateTab2(event: PageEvent): void {
+    this.paginationTab2.pageSize = event.pageSize;
+    this.paginationTab2.pageIndex = event.pageIndex;
+    this.dataSourceTab2();
+  }
+
+  public paginateTab3(event: PageEvent): void {
+    this.paginationTab3.pageSize = event.pageSize;
+    this.paginationTab3.pageIndex = event.pageIndex;
+    this.dataSourceTab3();
+  }
+
+  //Actions
+  public follow(user: User): void {
     user.visible = !user.visible;
     let follower: Follower = new Follower(this.user.id, user.id);
     this.followersServices.following(follower).subscribe(
-      response => {
+      () => {
         this.snackBar.openFromComponent(CustomSnackBarComponent, {
-          duration: 2000, 
-          data:{"lang":'app.dashboard.followers.table.buttonAction.follow', params:{value:user.username}}
+          duration: 2000,
+          data: { "lang": 'app.dashboard.followers.table.buttonAction.follow', params: { value: user.username } }
         });
         //this.snackBar.open(`Ha empezado a segir a ${user.username}`, '', { duration: 2000 });
       },
-      error => {
+      () => {
         alert('error');
       });
   }
 
-  onPaginateTab1(event: PageEvent): void {
-    this.dataConfigTab1.pageSize = event.pageSize;
-    this.dataConfigTab1.pageIndex = event.pageIndex;
-    this.findAllNotFollowers();
-  }
-
-  onFilterTab1() {
-    this.countNotFollowers();
-  }
-
-  applyFilterTab1(filterValue: string) {
-    this.dataConfigTab1.search = filterValue;
-    this.countNotFollowers();
-  }
-
-  //Tab2
-  private countFollowers(): void {
-    this.followersServices.count(this.user.id, this.dataConfigTab2.search, 'followers').subscribe(
-      response => {
-        this.dataConfigTab2.length = response;
-        this.findAllFollowers();
-      },
-      error => {
-        alert('error');
-      });
-  }
-
-  private findAllFollowers(): void {
-    this.isLoadingResultsTab2 = true;
-    log('entro');
-    this.followersServices.find(this.user.id, this.dataConfigTab2.search, ((this.dataConfigTab2.pageIndex) * this.dataConfigTab2.pageSize).toString(), this.dataConfigTab2.pageSize, 'followers').subscribe(
-      response => {
-        log('entro2');
-        this.dataSourceTab2 = response;
-
-        this.isLoadingResultsTab2 = false;
-        //await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => this.isLoadingResults = false);
-      },
-      error => {
-        this.isLoadingResultsTab2 = false;
-        alert('error');
-      });
-  }
-
-  loadTab2(): void {
-    this.countFollowers();
-  }
-
-  onPaginateTab2(event: PageEvent): void {
-    this.dataConfigTab2.pageSize = event.pageSize;
-    this.dataConfigTab2.pageIndex = event.pageIndex;
-    this.findAllFollowers();
-  }
-
-  //Tab3
-  private countFollowing(): void {
-
-    this.followersServices.count(this.user.id, this.dataConfigTab3.search, 'following').subscribe(
-      response => {
-        this.dataConfigTab3.length = response;
-        this.findAllFollowing();
-      },
-      error => {
-        alert('error');
-      });
-  }
-
-  private findAllFollowing(): void {
-    this.isLoadingResultsTab3 = true;
-    this.followersServices.find(this.user.id, this.dataConfigTab3.search, ((this.dataConfigTab3.pageIndex) * this.dataConfigTab3.pageSize).toString(), this.dataConfigTab3.pageSize, 'following').subscribe(
-      response => {
-        this.dataSourceTab3 = response;
-
-        this.isLoadingResultsTab3 = false;
-        //await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => this.isLoadingResults = false);
-      },
-      error => {
-        this.isLoadingResultsTab3 = false;
-        alert('error');
-      });
-  }
-
-  loadTab3(): void {
-    this.countFollowing();
-  }
-
-  onPaginateTab3(event: PageEvent): void {
-    this.dataConfigTab3.pageSize = event.pageSize;
-    this.dataConfigTab3.pageIndex = event.pageIndex;
-    this.findAllFollowing();
-  }
-
-  public unFollowing(follower: User): void {
+  public unFollow(follower: User): void {
     follower.visible = !follower.visible;
     this.followersServices.stopFollowing(this.user.id, follower.id).subscribe(
-      response => {
+      () => {
         this.snackBar.openFromComponent(CustomSnackBarComponent, {
           duration: 2000,
-          data:{"lang":'app.dashboard.followers.table.buttonAction.unfollow', params:{value:follower.username}}
-           });
+          data: { "lang": 'app.dashboard.followers.table.buttonAction.unfollow', params: { value: follower.username } }
+        });
         //open(`Ha dejado de segir a ${follower.username}`, '', );
       },
-      error => {
+      () => {
         alert('error');
+      });
+  }
+
+  //Count
+  private countTab1() {
+    this.countSubscriptionTab1=this.followersServices.count(this.user.id, this.paginationTab1.search, 'notfollowers').subscribe(
+      (count: number) => {
+        this.countTab1$.next(count);
+      });
+  }
+  private countTab2() {
+    this.countSubscriptionTab2=this.followersServices.count(this.user.id, this.paginationTab1.search, 'followers').subscribe(
+      (count: number) => {
+        this.countTab2$.next(count);
+      });
+  }
+  private countTab3() {
+    this.countSubscriptionTab3=this.followersServices.count(this.user.id, this.paginationTab1.search, 'following').subscribe(
+      (count: number) => {
+        this.countTab3$.next(count);
+      });
+  }
+  //DataSource
+  private dataSourceTab1() {
+    this.dataSourceSubscriptionTab1=this.followersServices.find(this.user.id, this.paginationTab1.search, ((this.paginationTab1.pageIndex) * this.paginationTab1.pageSize).toString(), this.paginationTab1.pageSize.toString(), 'notfollowers').subscribe(
+      (users: User[]) => {
+        this.dataSourceTab1$.next(users);
+      });
+  }
+  private dataSourceTab2() {
+    this.dataSourceSubscriptionTab2=this.followersServices.find(this.user.id, this.paginationTab2.search, ((this.paginationTab2.pageIndex) * this.paginationTab2.pageSize).toString(), this.paginationTab2.pageSize.toString(), 'followers').subscribe(
+      (users: User[]) => {
+        this.dataSourceTab2$.next(users);
+      });
+  }
+  private dataSourceTab3() {
+    this.dataSourceSubscriptionTab3=this.followersServices.find(this.user.id, this.paginationTab3.search, ((this.paginationTab3.pageIndex) * this.paginationTab3.pageSize).toString(), this.paginationTab3.pageSize.toString(), 'following').subscribe(
+      (users: User[]) => {
+        this.dataSourceTab3$.next(users);
       });
   }
 
 }
-
-
-/*
- */

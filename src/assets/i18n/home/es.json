@@ -13,6 +13,7 @@
                     "timestamp": "",
                     "buttonTool": "Opciones",
                     "buttonDeletePost": "Eliminar publicación",
+                    "snackBarToDelete":"Publicación eliminada",
                     "buttonUnFollow": "Dejar de seguir",
                     "buttonWatchPost": "Ir a la publicación"
                 },

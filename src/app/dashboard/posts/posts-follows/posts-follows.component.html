@@ -20,7 +20,7 @@
                 <button mat-menu-item *ngIf="user.id!= post.user.id" (click)="unFollowing(post.user)">
                     <span class="warn">{{"home.posts.cardPost.header.buttonUnFollow"| translate}}</span>
                 </button>
-                <button mat-menu-item *ngIf="user.id== post.user.id" (click)="delete(post.id)">
+                <button mat-menu-item *ngIf="user.id== post.user.id" (click)="delete(post.id, index)">
                     <span class="warn">{{"home.posts.cardPost.header.buttonDeletePost"| translate}}</span>
                 </button>
                 <button mat-menu-item (click)="goToPublishing(post.id)">

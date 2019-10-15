@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ShareModule } from 'src/app/config/modules/share/share.module';
 
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { CustomSnackBarModule } from 'src/app/config/modules/custom-snack-bar/custom-snack-bar.module';
 
 
 
@@ -31,6 +32,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     ScrollingModule,
     MyPerfectScrollBarModule,
     CircleImageModule,
+    CustomSnackBarModule,
     PickerModule 
 
     
