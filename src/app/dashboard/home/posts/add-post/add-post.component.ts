@@ -3,18 +3,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { User } from 'src/app/model/user';
 import { ImageService } from 'src/app/config/services/image/image.service';
 import { HttpEventType } from '@angular/common/http';
-import { log } from 'util';
-import { interval } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PostsService } from '../posts.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
 import { Post } from 'src/app/model/post';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  selector: 'app-add-post',
+  templateUrl: './add-post.component.html',
+  styleUrls: ['./add-post.component.scss']
 })
-export class AddComponent implements OnInit {
+export class AddPostComponent  implements OnInit {
 
   isVisibleProgressBar: boolean = false;
 
@@ -33,7 +31,7 @@ export class AddComponent implements OnInit {
   postForm: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<AddComponent>,
+    public dialogRef: MatDialogRef<AddPostComponent>,
     @Inject(MAT_DIALOG_DATA) public user: User,
     private imageService: ImageService,
     private formBuilder: FormBuilder) {
@@ -60,7 +58,7 @@ export class AddComponent implements OnInit {
   onNoClick(): void {
     if (this.image != null) {
       this.imageService.delete('posts', this.imageName).subscribe(
-        response => {
+        () => {
 
         });
     }

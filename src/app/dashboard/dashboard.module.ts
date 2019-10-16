@@ -12,19 +12,13 @@ import { getDutchPaginatorIntl } from '../config/functions/dutch-paginator-intl'
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-
 import { FooterComponent } from './footer/footer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { StoriesComponent } from './stories/stories.component';
-
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { InternationalizationService } from '../config/services/i18n/internationalization.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PostsFollowsComponent } from './posts/posts-follows/posts-follows.component';
-import { MyPostsComponent } from './posts/my-posts/my-posts.component';
-
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/dashboard/', '.json');
@@ -38,12 +32,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     FooterComponent,
     StoriesComponent
 
-   
+
 
   ],
   imports: [
     CommonModule,
-    
+
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -75,21 +69,13 @@ export function HttpLoaderFactory(http: HttpClient) {
 export class DashboardModule {
 
   constructor(
-    private translate: TranslateService, 
+    private translate: TranslateService,
     private internationalization: InternationalizationService) {
-    
-    let firstTime: boolean = false;
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('en');
-
     this.internationalization.languaje.subscribe(
       lang => {
-        firstTime = true;
         this.translate.use(lang);
       });
-
-    if (!firstTime) {
-      this.translate.use(this.internationalization.lang);
-    }
   }
 }

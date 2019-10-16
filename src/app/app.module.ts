@@ -28,9 +28,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    
-    
-    
+
+
+
 
 
   ],
@@ -81,19 +81,12 @@ export class AppModule {
   constructor(
     private translate: TranslateService,
     private internationalization: InternationalizationService) {
-
-    let firstTime: boolean = false;
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('en');
-  
     this.internationalization.languaje.subscribe(
       lang => {
-        firstTime = true;
         this.translate.use(lang);
       });
 
-    if (!firstTime) {
-      this.translate.use('en');
-    }
   }
 }

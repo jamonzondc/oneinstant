@@ -1,26 +1,20 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { User } from 'src/app/model/user';
 import { MatPaginator, MatSnackBar, MatDialog, PageEvent, MatDialogRef } from '@angular/material';
-import { PostsService } from '../posts.service';
 import { Post } from 'src/app/model/post';
 import { ImageService } from 'src/app/config/services/image/image.service';
-import { async } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
 import { CustomSnackBarComponent } from 'src/app/config/modules/custom-snack-bar/custom-snack-bar.component';
-import { FollowersService } from '../../followers/followers.service';
-
-import { Observable, fromEvent, interval } from 'rxjs';
-import { HttpEventType } from '@angular/common/http';
-import { AddComponent } from '../add/add.component';
-
+import { PostsService } from '../posts.service';
+import { FollowersService } from 'src/app/dashboard/followers/followers.service';
+import { AddPostComponent } from '../add-post/add-post.component';
 
 @Component({
-  selector: 'app-posts-follows',
-  templateUrl: './posts-follows.component.html',
-  styleUrls: ['./posts-follows.component.scss']
-  
+  selector: 'posts-list',
+  templateUrl: './posts-list.component.html',
+  styleUrls: ['./posts-list.component.scss']
 })
-export class PostsFollowsComponent implements OnInit {
+export class PostsListComponent implements OnInit {
 
   private url: String = environment.urlApi;
 
@@ -41,7 +35,6 @@ export class PostsFollowsComponent implements OnInit {
   constructor(private postsService: PostsService,
     private snackBar: MatSnackBar,
     private followersServices: FollowersService,
-    private imageService: ImageService,
     public dialog: MatDialog,
     private changeDetectorRefs: ChangeDetectorRef) {
     this.user = new User();
@@ -63,7 +56,7 @@ export class PostsFollowsComponent implements OnInit {
         this.dataConfig.length = response;
         this.findAll();
       },
-      error => {
+      () => {
         alert('error');
       });
   }
@@ -80,7 +73,7 @@ export class PostsFollowsComponent implements OnInit {
         this.isLoadingResults = false;
         //await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => this.isLoadingResults = false);
       },
-      error => {
+      () => {
         this.isLoadingResults = false;
         alert('error');
       });
@@ -107,19 +100,19 @@ export class PostsFollowsComponent implements OnInit {
 
     follower.visible = !follower.visible;
     this.followersServices.stopFollowing(this.user.id, follower.id).subscribe(
-      response => {
+      () => {
         this.snackBar.openFromComponent(CustomSnackBarComponent, {
           duration: 2000,
           data: { "lang": 'app.dashboard.followers.table.buttonAction.unfollow', params: { value: follower.username } }
         });
         //open(`Ha dejado de segir a ${follower.username}`, '', );
       },
-      error => {
+      () => {
         alert('error');
       });
   }
-  public delete(postId: number, index: number): void {
-    this.postsService.delete(postId).subscribe(response => {
+  public delete(postId: number): void {
+    this.postsService.delete(postId).subscribe(() => {
       this.count();
 
       this.snackBar.openFromComponent(CustomSnackBarComponent, {
@@ -143,12 +136,12 @@ export class PostsFollowsComponent implements OnInit {
     });
   }
 
-  public addComment(index: number, postId: number) {
+  public addComment(index: number) {
     alert(this.inputsComments[index]);
   }
 
-  public onOpenModal(): void {
-    const dialogRef = this.dialog.open(AddComponent, { width: '600px', data: this.user });
+  public addPost(): void {
+    const dialogRef = this.dialog.open(AddPostComponent, { width: '600px', data: this.user });
     dialogRef.afterClosed().subscribe(result => {
       if (result instanceof Post) {
         this.dataSource.splice(0, 0, result);
@@ -156,6 +149,10 @@ export class PostsFollowsComponent implements OnInit {
       }
 
     });
+  }
+
+  public addStorie():void{
+    alert('Add Storie');
   }
 }
 
