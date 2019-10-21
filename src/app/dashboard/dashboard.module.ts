@@ -19,6 +19,14 @@ import { StoriesComponent } from './stories/stories.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { InternationalizationService } from '../config/services/i18n/internationalization.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TestComponent } from './test/test.component';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { UiScrollModule } from 'ngx-ui-scroll' ;
+import { NgScrollbarModule } from 'ngx-scrollbar';
+
+import { NgSlimScrollModule, SLIMSCROLL_DEFAULTS } from 'ngx-slimscroll';
+import {ScrollingModule as ExperimentalScrollingModule} from '@angular/cdk-experimental/scrolling';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/dashboard/', '.json');
@@ -30,22 +38,29 @@ export function HttpLoaderFactory(http: HttpClient) {
     SidenavComponent,
     ToolbarComponent,
     FooterComponent,
-    StoriesComponent
+    StoriesComponent,
+    TestComponent
 
 
 
   ],
   imports: [
     CommonModule,
-
+    NgScrollbarModule,
+    ExperimentalScrollingModule,
+    VirtualScrollerModule,
+    UiScrollModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
     OverlayModule,
     ScrollingModule,
-    MyPerfectScrollBarModule,
+    
     CircleImageModule,
+    NgSlimScrollModule,
+
+
 
     HttpClientModule,
     TranslateModule.forChild({
@@ -63,7 +78,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 
   ],
   providers: [
-    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }
+    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
+      // OPTIONAL : provide default global settings which will be merge with component options.
+      {
+        provide: SLIMSCROLL_DEFAULTS,
+        useValue: {
+          alwaysVisible : false
+        }
+      },
   ]
 })
 export class DashboardModule {

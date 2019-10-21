@@ -29,12 +29,12 @@ export class StorieService {
     return this.httpClient.get<Story[]>(`${this.url}stories`, { params: httpParams });
   }
 
-  save(story: Story): Observable<any> {
+  save(story: Story): Observable<number> {
     const httpHeader = new HttpHeaders().set('Content-Type', 'application/json;charset=UTF-8');
-    return this.httpClient.post(`${this.url}stories`, story, { headers: httpHeader });
+    return this.httpClient.post<number>(`${this.url}stories`, story, { headers: httpHeader });
   }
 
-  delete(id: string): Observable<any> {
+  delete(id: number): Observable<any> {
     return this.httpClient.delete(`${this.url}stories/${id}`);
   }
 

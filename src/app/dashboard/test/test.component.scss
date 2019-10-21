@@ -1,0 +1,48 @@
+.viewport {
+  width: 250px;
+  height: 150px;
+  overflow-y: auto;
+}
+.item {
+  font-weight: bold;
+}
+.remove {
+  font-weight: normal;
+  font-size: smaller;
+  cursor: pointer;
+}
+.remove:hover {
+  color: rgb(158, 0, 0);
+}
+
+/*
+cdk-virtual-scroll-viewport {
+  border: 1px solid white;
+  border-radius: 4px;
+  height: 400px;
+  width: 300px;
+}
+
+.item {
+  box-sizing: border-box;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(235, 4, 4, 0.575);
+
+  border: {
+    top: 1px solid rgba(255,255,255,1);
+  }
+
+  &:first-child {
+    border: none;
+  }
+
+  &:nth-child(2n) {
+    height: 100px;
+  }
+}
+*/
+
+/* -------------------------------------------------------*/

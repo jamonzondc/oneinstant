@@ -4,7 +4,7 @@
   <mat-sidenav-container class="example-sidenav-container">
 
     <mat-sidenav id="sidenav" [opened]="!mobileQuery.matches" #snav [mode]="mobileQuery.matches ? 'over' : 'side'">
-      <perfect-scrollbar>
+      <!--perfect-scrollbar-->
         <!--ul>
           <li>
               <button mat-flat-button  color="accent" *ngIf="false" fxHide.xs (click)="unFollowing(row)">
@@ -56,19 +56,25 @@
             <span *ngIf="isExpanded">{{"app.dashboard.sidenav.stories"| translate}}</span>
           </a>
 
+          <a mat-list-item routerLink="test" routerLinkActive="dark-active-link" [routerLinkActiveOptions]="{exact:
+            true}">
+            <mat-icon>build</mat-icon>
+            <span *ngIf="isExpanded">Test</span>
+          </a>
+
         </mat-nav-list>
-      </perfect-scrollbar>
+     
     </mat-sidenav>
 
 
 
     <mat-sidenav-content id="sidenav-content">
-      <perfect-scrollbar>
+      <!--perfect-scrollbar-->
        
           <router-outlet ></router-outlet>
         
         <app-footer color="accent"></app-footer>
-      </perfect-scrollbar>
+      
     </mat-sidenav-content>
 
   </mat-sidenav-container>

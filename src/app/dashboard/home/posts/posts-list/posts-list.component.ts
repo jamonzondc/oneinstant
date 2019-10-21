@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { User } from 'src/app/model/user';
 import { MatPaginator, MatSnackBar, MatDialog, PageEvent, MatDialogRef } from '@angular/material';
 import { Post } from 'src/app/model/post';
@@ -8,39 +8,49 @@ import { CustomSnackBarComponent } from 'src/app/config/modules/custom-snack-bar
 import { PostsService } from '../posts.service';
 import { FollowersService } from 'src/app/dashboard/followers/followers.service';
 import { AddPostComponent } from '../add-post/add-post.component';
+import { Datasource } from 'ngx-ui-scroll';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'posts-list',
   templateUrl: './posts-list.component.html',
-  styleUrls: ['./posts-list.component.scss']
+  styleUrls: ['./posts-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostsListComponent implements OnInit {
 
   private url: String = environment.urlApi;
-
-  private user: User;
-
+  user: User;
   inputsComments: String[] = [];
-
-
-  @ViewChild('paginator', { read: MatPaginator, static: false }) paginator: MatPaginator;
   isLoadingResults: boolean = false;
-  dataSource: Post[] = [];
-  dataConfig: any = {
-    pageIndex: 0,
-    pageSize: 2,// Cantidad de items a mostrar por página
-    length: 0// Cantidad total de itmes
-  };
+  data: Post[];
+  countItemsAdd: number = 0;
+
+  datasource = new Datasource({
+    get: (index, count, success) => {
+      this.data = [];
+      this.postsService.findAllPostsFollowers(this.user.id, (index - 1) + this.countItemsAdd + '', count + '').subscribe(posts => {
+        this.data.push(...posts);
+        success(this.data);
+      });
+
+    },
+    settings: {
+      minIndex: 1
+     
+
+    }
+  });
 
   constructor(private postsService: PostsService,
     private snackBar: MatSnackBar,
     private followersServices: FollowersService,
     public dialog: MatDialog,
-    private changeDetectorRefs: ChangeDetectorRef) {
+    private changeDetectorRefs: ChangeDetectorRef,
+    private router:Router) {
     this.user = new User();
     this.user.id = 1;
     this.user.username = 'jjj';
-    this.count();
 
   }
 
@@ -48,54 +58,14 @@ export class PostsListComponent implements OnInit {
 
   }
 
-
-  private count(): void {
-
-    this.postsService.countPostsFollowers(this.user.id).subscribe(
-      response => {
-        this.dataConfig.length = response;
-        this.findAll();
-      },
-      () => {
-        alert('error');
-      });
-  }
-  public onB(e) {
-    alert(e);
-  }
-
-  private findAll(): void {
-    this.isLoadingResults = true;
-    this.postsService.findAllPostsFollowers(this.user.id, ((this.dataConfig.pageIndex) * this.dataConfig.pageSize).toString(), this.dataConfig.pageSize).subscribe(
-      response => {
-        this.dataSource = response;
-        this.changeDetectorRefs.detectChanges();
-        this.isLoadingResults = false;
-        //await new Promise(resolve => setTimeout(() => resolve(), 1000)).then(() => this.isLoadingResults = false);
-      },
-      () => {
-        this.isLoadingResults = false;
-        alert('error');
-      });
-  }
-
-  load(): void {
-    this.count();
-  }
-
-  onPaginate(event: PageEvent): void {
-    this.dataConfig.pageSize = event.pageSize;
-    this.dataConfig.pageIndex = event.pageIndex;
-    this.findAll();
-  }
-
   public loadImage(name: string): string {
     return `${this.url}posts/images/${name}`;
   }
 
   public goToPublishing(id: number) {
-    alert(id);
+    this.router.navigate(['/dashboard/home/posts', id]);
   }
+
   public unFollowing(follower: User): void {
 
     follower.visible = !follower.visible;
@@ -111,16 +81,17 @@ export class PostsListComponent implements OnInit {
         alert('error');
       });
   }
+
   public delete(postId: number): void {
     this.postsService.delete(postId).subscribe(() => {
-      this.count();
-
+      this.datasource.adapter.remove(item => item.data.id === postId);     
       this.snackBar.openFromComponent(CustomSnackBarComponent, {
         duration: 2000,
         data: { "lang": 'home.posts.cardPost.header.snackBarToDelete' }
       });
     });
   }
+
 
   public onEmoji(index: number) {
     const dialogRef = this.dialog.open(EmojisDialog);
@@ -142,16 +113,22 @@ export class PostsListComponent implements OnInit {
 
   public addPost(): void {
     const dialogRef = this.dialog.open(AddPostComponent, { width: '600px', data: this.user });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result instanceof Post) {
-        this.dataSource.splice(0, 0, result);
-        this.changeDetectorRefs.detectChanges()
-      }
+    dialogRef.afterClosed().subscribe(post => {
+      if (post instanceof Post) {
+        this.postsService.save(post).subscribe(id => {
+          post.id=id;
+          this.countItemsAdd++;
+          this.datasource.adapter.prepend(post, true);
+          setTimeout(() => {
+            this.datasource.adapter.setScrollPosition(10);
+          }, 1);
 
+        });
+      }
     });
   }
 
-  public addStorie():void{
+  public addStorie(): void {
     alert('Add Storie');
   }
 }

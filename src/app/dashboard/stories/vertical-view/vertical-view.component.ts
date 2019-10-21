@@ -15,18 +15,20 @@ import { CustomSnackBarComponent } from 'src/app/config/modules/custom-snack-bar
 import { StorieService } from '../storie.service';
 import { FollowersService } from '../../followers/followers.service';
 import { WatchStoriesComponent } from '../watch/watch-stories.component';
+import { async } from 'q';
 
 
 @Component({
   selector: 'app-vertical-view',
   templateUrl: './vertical-view.component.html',
-  styleUrls: ['./vertical-view.component.scss']
+  styleUrls: ['./vertical-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VerticalViewComponent implements OnInit {
 
   private user: User;
-  dataSource: any = null;
- 
+  dataSource: MyDataSource = null;
+
   constructor(
     public storiesService: StorieService,
     private changeDetectorRefs: ChangeDetectorRef,
@@ -43,9 +45,10 @@ export class VerticalViewComponent implements OnInit {
   ngOnInit(): void {
     this.storiesService.count().subscribe(
       response => {
-        log('response: ' + response);
+
         this.dataSource = new MyDataSource(this.storiesService, response);
-        this.changeDetectorRefs.detectChanges();
+        this.changeDetectorRefs.markForCheck();
+
       },
       error => { log('error'); });
   }
@@ -58,19 +61,33 @@ export class VerticalViewComponent implements OnInit {
 
 
   openMatDialog(): void {
-    let dialogRef = this.matDialog.open(WatchStoriesComponent);
+    //  let dialogRef = this.matDialog.open(WatchStoriesComponent);
+    let u: User = new User();
+    u.id = 1;
+    u.username = 'Insert';
+    u.image = 'avatar:svg-14';
+    let s = new Story(1000, 'a', new Date().toUTCString(), '', u);
+    this.storiesService.save(s).subscribe(r => {
+      s.id=r;
+     
+      this.dataSource.addStory(s);
+    });
+
+    
+    //this.changeDetectorRefs.markForCheck();
   }
 
- 
+
 }
 export class MyDataSource extends DataSource<Story | undefined> {
 
-  private _pageSize = 5;
-  private _cachedData;
-  private _fetchedPages = new Set<number>();
-  private _dataStream;
-  private _subscription = new Subscription();
-
+  private _pageSize: number = 5;
+  private _cachedData: Story[];
+  private _fetchedPages: Set<number> = new Set<number>();
+  private _dataStream: BehaviorSubject<(Story | undefined)[]>;
+  private _subscription: Subscription = new Subscription();
+  private lastPage: number = 0;
+  private realCountInCache: number = 0;
 
   constructor(
     public storiesService: StorieService,
@@ -80,30 +97,43 @@ export class MyDataSource extends DataSource<Story | undefined> {
 
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<(Story | undefined)[]> {
-    log('Connect');
+  isAdd: boolean = false;
 
+  connect(collectionViewer: CollectionViewer): Observable<(Story | undefined)[]> {
     this._cachedData = Array.from<Story>({ length: this._length });
     this._dataStream = new BehaviorSubject<(Story | undefined)[]>(this._cachedData);
-
-
     this._subscription.add(collectionViewer.viewChange.subscribe(range => {
-
-
-      const startPage = this._getPageForIndex(range.start);
-      const endPage = this._getPageForIndex(range.end - 1);
-      log('start: ' + startPage + '--- end: ' + endPage);
-
-      for (let i = startPage; i <= endPage; i++) {
-        this._fetchPage(i);
+      if (!this.isAdd) {
+        console.log('Entro al view change');
+        const startPage = this._getPageForIndex(range.start);
+        const endPage = this._getPageForIndex(range.end - 1);
+        for (let i = startPage; i <= endPage; i++) {
+          this._fetchPage(i);
+        }
       }
+      this.isAdd = false;
     }));
 
     return this._dataStream;
   }
+  countt: number = 0;
+  public addStory(story: Story): void {
+
+    this.countt++;
+    this.isAdd = true;
+    if (this.countt == this._pageSize) {
+      this.lastPage++;
+      this._fetchedPages.add(this.lastPage);
+      this.countt = 0;
+    }
+    this._cachedData.splice(0, 0, story);
+    this._dataStream.next(this._cachedData);
+
+
+  }
 
   disconnect(): void {
-    log('disconnect');
+
     this._subscription.unsubscribe();
   }
 
@@ -116,12 +146,16 @@ export class MyDataSource extends DataSource<Story | undefined> {
     if (this._fetchedPages.has(page)) {
       return;
     }
-    this._fetchedPages.add(page);
-
+    if (this.countt == 0) {
+      this._fetchedPages.add(page);
+      this.lastPage = page;
+    }
 
     this.storiesService.findAll(page * this._pageSize + '', this._pageSize + '').subscribe(response => {
-      this._cachedData.splice(page * this._pageSize, this._pageSize, ...response);
+      this.realCountInCache += 5;
+      this._cachedData.splice((page * this._pageSize) + this.countt, this._pageSize, ...response);
       this._dataStream.next(this._cachedData);
+
     },
       error => {
 
@@ -136,5 +170,6 @@ export class MyDataSource extends DataSource<Story | undefined> {
         }, Math.random() * 1000 + 200);
     */
   }
+
 }
 

@@ -1,5 +1,6 @@
 .viewport {
-  height: 1200px !important;
+  height: 200px !important;
+  
 }
 .example-card {
     max-width: 600px;
@@ -12,6 +13,7 @@
     padding: 0 !important;
   }
   #imagePost {
+    max-height: 400px;
     background: no-repeat center center !important;
     max-height: 320px !important;
     -webkit-background-size: cover !important;
@@ -26,50 +28,41 @@
   .action-button-publishin {
     margin-right: 12px;
   }
-  .mat-expansion-panel {
-    width: 600px;
-    padding: 0 16px !important;
-  }
-  
-  .mat-card {
-    margin-top: 8px;
-    margin-bottom: 12px;
-  }
   /* ScrollBar  */
-.scrollbar-post {
+.scrollbar-comment {
   overflow: auto;
   padding-right: 8px;
 }
 
 /* Tamaño del scroll */
-.scrollbar-post::-webkit-scrollbar {
-  width: 1px;
-  height: 1px;
+.scrollbar-comment::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
  /* Estilos barra (thumb) de scroll */
-.scrollbar-post::-webkit-scrollbar-thumb {
+.scrollbar-comment::-webkit-scrollbar-thumb {
   background: #d48ff4;
   border-radius: 5px;
 }
 
-.scrollbar-post::-webkit-scrollbar-thumb:active {
+.scrollbar-comment::-webkit-scrollbar-thumb:active {
   background-color: #999999;
 }
 
-.scrollbar-post::-webkit-scrollbar-thumb:hover {
+.scrollbar-comment::-webkit-scrollbar-thumb:hover {
   background: #b3b3b3;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
  /* Estilos track de scroll */
-.scrollbar-post::-webkit-scrollbar-track {
+.scrollbar-comment::-webkit-scrollbar-track {
   border-radius: 5px;
   border-style: none;
 
 }
 
-.scrollbar-post::-webkit-scrollbar-track:hover, 
-.scrollbar-post::-webkit-scrollbar-track:active {
+.scrollbar-comment::-webkit-scrollbar-track:hover, 
+.scrollbar-comment::-webkit-scrollbar-track:active {
   background: #d4d4d4;
 }

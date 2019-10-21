@@ -40,4 +40,9 @@ table {
   .name-user-in-table{
     margin-left: 8px;
   }
-  
+  .dark-theme .mat-flat-button.mat-accent, 
+.dark-theme .mat-raised-button.mat-accent, 
+.dark-theme .mat-fab.mat-accent, 
+.dark-theme .mat-mini-fab.mat-accent{
+    color: white !important;
+}

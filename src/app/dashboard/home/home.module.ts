@@ -18,13 +18,16 @@ import { AddPostComponent } from './posts/add-post/add-post.component';
 import { PostsListComponent, EmojisDialog } from './posts/posts-list/posts-list.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SpeedDialFabComponent } from './speed-dial-fab/speed-dial-fab.component';
+import { UiScrollModule } from 'ngx-ui-scroll' ;
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ViewComponent } from './posts/view/view.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/home/', '.json');
 }
 
 @NgModule({
-  declarations: [HomeComponent, AddPostComponent, PostsListComponent, EmojisDialog, SpeedDialFabComponent],
+  declarations: [HomeComponent, AddPostComponent, PostsListComponent, EmojisDialog, SpeedDialFabComponent, ViewComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -33,9 +36,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FlexLayoutModule,
     OverlayModule,
     ScrollingModule,
-    MyPerfectScrollBarModule,
+    NgScrollbarModule,
     PickerModule,
     CircleImageModule,
+    UiScrollModule,
     StoriesModule,
     
     HttpClientModule,

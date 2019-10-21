@@ -1,0 +1,49 @@
+<div style="padding: 10px;">
+    <mat-card class="example-card">
+
+        The uiScroll is
+        {{datasource.adapter.isLoading ? 'loading': 'relaxing'}},
+        counter {{loadingCounter}}
+
+        <br>
+
+        Inner loop is
+        {{datasource.adapter.loopPending ? 'pending': 'stopped'}},
+        counter: {{innerLoopCounter}}
+
+        <button (click)="doPrepend()">Prepend</button>
+        <button (click)="reload()">Reload</button>
+
+
+
+
+
+
+
+        <div class="viewport">
+         
+                <div *uiScroll="let item of datasource; let index=index;">
+                    <div class="item">
+                        {{index+': '+item.id}}
+                        <span class="remove" (click)="doRemove(item.id)">[remove]</span>
+                    </div>
+
+                </div>
+         
+        </div>
+
+       
+      
+        
+        <!--cdk-virtual-scroll-viewport autosize>
+                <div class="item" *cdkVirtualFor="let item of items">{{item}}</div>
+              </cdk-virtual-scroll-viewport-->
+              
+              
+
+            
+          
+
+    </mat-card>
+
+</div>

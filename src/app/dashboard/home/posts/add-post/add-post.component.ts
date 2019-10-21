@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { User } from 'src/app/model/user';
 import { ImageService } from 'src/app/config/services/image/image.service';
@@ -10,7 +10,8 @@ import { Post } from 'src/app/model/post';
 @Component({
   selector: 'app-add-post',
   templateUrl: './add-post.component.html',
-  styleUrls: ['./add-post.component.scss']
+  styleUrls: ['./add-post.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class AddPostComponent  implements OnInit {
 

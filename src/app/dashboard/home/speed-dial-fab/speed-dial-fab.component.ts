@@ -1,11 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { speedDialFabAnimations } from './speed-dial-fab.animations';
 
 @Component({
   selector: 'speed-dial-fab',
   templateUrl: './speed-dial-fab.component.html',
   styleUrls: ['./speed-dial-fab.component.scss'],
-  animations: speedDialFabAnimations
+  animations: speedDialFabAnimations,
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class SpeedDialFabComponent implements OnInit {
 
@@ -15,19 +16,12 @@ export class SpeedDialFabComponent implements OnInit {
 
   fabButtons = [
     {
-      icon: 'timeline'
+      icon: 'access_time',
+      action: '_addStorie()'
     },
     {
-      icon: 'view_headline'
-    },
-    {
-      icon: 'room'
-    },
-    {
-      icon: 'lightbulb_outline'
-    },
-    {
-      icon: 'lock'
+      icon: 'note',
+      action: '_addPost()'
     }
   ];
 
@@ -54,10 +48,13 @@ export class SpeedDialFabComponent implements OnInit {
     this.buttons.length ? this.hideItems() : this.showItems();
   }
 
-  public _addPost(): void {
-    this.addPost.emit();
+  public action(index: number): void {
+    if (index == 1) {
+      this.addPost.emit();
+    }
+    else {
+      this.addStorie.emit();
+    }
   }
-  public _addStorie(): void {
-    this.addStorie.emit();
-  }
+
 }

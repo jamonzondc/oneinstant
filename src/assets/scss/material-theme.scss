@@ -2,8 +2,8 @@
 
 @include mat-core();
 
-$primary: mat-palette($mat-purple);
-$accent: mat-palette($mat-yellow, A400);
+$primary: mat-palette($mat-blue,500);
+$accent: mat-palette($mat-pink, 500);
 $warn: mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
@@ -12,8 +12,8 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 // Our dark theme
 
-$dark-primary: mat-palette($mat-purple, 800);
-$dark-accent: mat-palette($mat-yellow, A700);
+$dark-primary: mat-palette($mat-blue, 500);
+$dark-accent: mat-palette($mat-pink, 400);
 $dark-warn: mat-palette($mat-red);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .dark-theme {

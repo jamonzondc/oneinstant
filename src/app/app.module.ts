@@ -43,9 +43,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FlexLayoutModule,
     HttpClientModule,
     OverlayModule,
-    MyPerfectScrollBarModule,
+    
     ScrollingModule,
     HttpClientModule,
+    
 
     AuthModule,
     JwtModule.forRoot({
@@ -71,9 +72,10 @@ export function HttpLoaderFactory(http: HttpClient) {
   entryComponents: [
     //WatchStoriesComponent
   ],
-  providers: [
-
+  providers: [ 
+  
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule {

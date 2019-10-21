@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ThemeService } from 'src/app/config/services/theme/theme.service';
 import { ImageService } from 'src/app/config/services/image/image.service';
 import { environment } from 'src/environments/environment';
@@ -7,7 +7,8 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-story-circle-image',
   templateUrl: './story-circle-image.component.html',
-  styleUrls: ['./story-circle-image.component.scss']
+  styleUrls: ['./story-circle-image.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class StoryCircleImageComponent implements OnInit {
 
@@ -22,7 +23,7 @@ export class StoryCircleImageComponent implements OnInit {
   @Input()
   background: string = 'white';
 
-  constructor(private themeService: ThemeService, private imageService: ImageService) {
+  constructor(private themeService: ThemeService, private imageService: ImageService, private cd:ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -31,6 +32,7 @@ export class StoryCircleImageComponent implements OnInit {
       this.themeService.isDarkTheme.subscribe(
         isDarkTheme => {
           isSubscribe = true;
+          this.cd.markForCheck();
           this.background = (isDarkTheme) ? '#424242' : 'white';
         }
       );

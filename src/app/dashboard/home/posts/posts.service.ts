@@ -17,8 +17,8 @@ export class PostsService {
 
   
 
-  findById(id: number): Observable<Post[]> {
-    return this.httpClient.get<Post[]>(`${this.url}posts/${id}`);
+  findById(id: string): Observable<Post> {
+    return this.httpClient.get<Post>(`${this.url}posts/${id}`);
   }
 
   countPostsFollowers(userId:number): Observable<number> {
